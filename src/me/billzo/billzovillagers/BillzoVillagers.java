@@ -1,6 +1,11 @@
 package me.billzo.billzovillagers;
 
+import me.billzo.billzovillagers.listeners.EntityBreedListener;
+import me.billzo.billzovillagers.listeners.EntityDeathListener;
+import me.billzo.billzovillagers.listeners.FoodLevelChangeListener;
+import me.billzo.billzovillagers.listeners.PlayerInteractEntityListener;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BillzoVillagers extends JavaPlugin {
@@ -20,9 +25,16 @@ public class BillzoVillagers extends JavaPlugin {
     saveConfig();
 
     new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
-
-    getServer().getPluginManager().registerEvents(new Listeners(), this);
+    registerListeners();
     this.getCommand("villager").setExecutor(new CommandVillager());
+  }
+
+  private void registerListeners() {
+    PluginManager pluginManager = getServer().getPluginManager();
+    pluginManager.registerEvents(new EntityBreedListener(), this);
+    pluginManager.registerEvents(new EntityDeathListener(), this);
+    pluginManager.registerEvents(new FoodLevelChangeListener(), this);
+    pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
   }
 
   @Override
