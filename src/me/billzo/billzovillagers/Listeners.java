@@ -26,25 +26,26 @@ public class Listeners implements Listener {
       return;
 
     Entity entity = event.getRightClicked();
-    if(!(entity instanceof Villager))
-      return;
+    if((entity instanceof Villager && config.getBoolean("leashing.villager")) ||
+        (entity instanceof ZombieVillager && config.getBoolean("leashing.zombie_villager")) ||
+        (entity instanceof WanderingTrader && config.getBoolean("leashing.wandering_trader"))) {
+      LivingEntity livingEntity = (LivingEntity) entity;
+      if(!livingEntity.isLeashed()) {
+        HumanEntity player = event.getPlayer();
+        ItemStack heldItem = player.getInventory().getItemInMainHand();
+        if(!heldItem.isSimilar(new ItemStack(Material.LEAD)))
+          return;
 
-    Villager villager = (Villager) entity;
-    if(!villager.isLeashed()) {
-      HumanEntity player = event.getPlayer();
-      ItemStack heldItem = player.getInventory().getItemInMainHand();
-      if(!heldItem.isSimilar(new ItemStack(Material.LEAD)))
-        return;
+        event.setCancelled(true);
+        livingEntity.setLeashHolder(player);
+        if(player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
+          ItemStack newHeldItem = heldItem;
+          newHeldItem.setAmount(newHeldItem.getAmount() - 1);
+          if(newHeldItem.getAmount() <= 0)
+            newHeldItem = new ItemStack(Material.AIR);
 
-      event.setCancelled(true);
-      villager.setLeashHolder(player);
-      if(player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
-        ItemStack newHeldItem = heldItem;
-        newHeldItem.setAmount(newHeldItem.getAmount() - 1);
-        if(newHeldItem.getAmount() <= 0)
-          newHeldItem = new ItemStack(Material.AIR);
-
-        player.getInventory().setItemInMainHand(newHeldItem);
+          player.getInventory().setItemInMainHand(newHeldItem);
+        }
       }
     }
   }
