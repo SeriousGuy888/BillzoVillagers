@@ -1,9 +1,7 @@
 package me.billzo.billzovillagers;
 
-import me.billzo.billzovillagers.listeners.EntityBreedListener;
-import me.billzo.billzovillagers.listeners.EntityDeathListener;
-import me.billzo.billzovillagers.listeners.FoodLevelChangeListener;
-import me.billzo.billzovillagers.listeners.PlayerInteractEntityListener;
+import me.billzo.billzovillagers.guis.VillagerMenu;
+import me.billzo.billzovillagers.listeners.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,10 +29,13 @@ public class BillzoVillagers extends JavaPlugin {
 
   private void registerListeners() {
     PluginManager pluginManager = getServer().getPluginManager();
+
     pluginManager.registerEvents(new EntityBreedListener(), this);
     pluginManager.registerEvents(new EntityDeathListener(), this);
     pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
+
+    pluginManager.registerEvents(new VillagerMenu(), this);
   }
 
   @Override
