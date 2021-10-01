@@ -1,15 +1,26 @@
 package me.billzo.billzovillagers;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreedEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Listeners implements Listener {
@@ -70,5 +81,49 @@ public class Listeners implements Listener {
     }
 
     child.setCustomName(String.format("%s %s", childFirstName, childLastName));
+  }
+
+  @EventHandler
+  public void onEntityDeath(EntityDeathEvent event) {
+    Entity entity = event.getEntity();
+    if((entity instanceof Villager) || (entity instanceof WanderingTrader)) {
+      boolean wanderingTrader = entity instanceof WanderingTrader;
+
+      ItemStack itemStack = new ItemStack(Material.COOKED_BEEF);
+      itemStack.setAmount(new Random().nextInt(3) + 1);
+
+      ItemMeta itemMeta = itemStack.getItemMeta();
+      if(itemMeta == null)
+        return;
+      itemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + (wanderingTrader ? "Wandering Trader Meat" : "Villager Meat"));
+      itemMeta.setLore(Collections.singletonList(ChatColor.GRAY + (wanderingTrader ? "Wandering traders are turkey flavoured?" : "Villagers are chicken flavoured?")));
+
+      PersistentDataContainer data = itemMeta.getPersistentDataContainer();
+      data.set(new NamespacedKey(BillzoVillagers.getPlugin(), "meat_type"), PersistentDataType.STRING, "villager");
+
+      itemStack.setItemMeta(itemMeta);
+
+      entity.getWorld().dropItem(entity.getLocation(), itemStack);
+    }
+  }
+
+  @EventHandler
+  public void onFoodLevelChange(FoodLevelChangeEvent event) {
+    HumanEntity player = event.getEntity();
+    ItemStack itemStack = event.getItem();
+    if(itemStack == null)
+      return;
+
+    String meatType = itemStack
+        .getItemMeta()
+        .getPersistentDataContainer()
+        .get(new NamespacedKey(BillzoVillagers.getPlugin(), "meat_type"), PersistentDataType.STRING);
+
+    if(meatType.equals("villager")) {
+      event.setCancelled(true);
+      itemStack.setAmount(itemStack.getAmount() - 1);
+      player.setFoodLevel(player.getFoodLevel() + 10); // steak restores 8
+      player.setSaturation(Math.min(player.getSaturation() + 14, player.getFoodLevel())); // steak restores 12.8
+    }
   }
 }
