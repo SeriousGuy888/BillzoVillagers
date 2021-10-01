@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BillzoVillagers:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BillzoVillagers</output-path>
+    <root id="archive" name="BillzoVillagers.jar">
+      <element id="module-output" name="BillzoVillagers" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Stuff/Spigot/spigot-api-1.17.1-R0.1-20210929.090115-75.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Stuff/Spigot/spigot-1.17.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

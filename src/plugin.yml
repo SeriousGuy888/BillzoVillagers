@@ -1,0 +1,11 @@
+name: BillzoVillagers
+description: Enslave and abuse villagers to your sadistic heart's content!
+version: 0.1.0
+author: SeriousGuy888
+main: me.billzo.billzovillagers.BillzoVillagers
+api-version: 1.17
+commands:
+  villager:
+    description: this is a command
+    usage: /<command>
+    permission: billzovillagers.villager

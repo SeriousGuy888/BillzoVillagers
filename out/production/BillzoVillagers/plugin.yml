@@ -1,0 +1,9 @@
+name: BillzoVillagers
+version: 0.0.1
+author: SeriousGuy888
+main: me.billzo.billzovillagers.BillzoVillagers
+api-version: 1.17
+commands:
+  villager:
+    description: slavery
+    usage: /<command>
