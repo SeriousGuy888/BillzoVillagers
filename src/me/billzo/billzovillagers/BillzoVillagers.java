@@ -2,7 +2,6 @@ package me.billzo.billzovillagers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 public class BillzoVillagers extends JavaPlugin {
   FileConfiguration config = getConfig();
@@ -15,7 +14,6 @@ public class BillzoVillagers extends JavaPlugin {
     config.options().copyDefaults(true);
     saveConfig();
 
-    BukkitScheduler scheduler = getServer().getScheduler();
     new TaskNameVillagers(this).runTaskTimer(this, 0L, 200L);
 
     getServer().getPluginManager().registerEvents(new Listeners(this), this);
