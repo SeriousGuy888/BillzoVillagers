@@ -2,17 +2,26 @@ package me.billzo.billzovillagers;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Villager;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Listeners implements Listener {
+  private final JavaPlugin plugin;
+  public Listeners(JavaPlugin plugin) {
+    this.plugin = plugin;
+  }
+
   @EventHandler
   public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+    FileConfiguration config = plugin.getConfig();
+    if(!config.getBoolean("leashing.villager"))
+      return;
+
     Entity entity = event.getRightClicked();
     if(!(entity instanceof Villager))
       return;
