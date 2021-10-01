@@ -9,21 +9,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
 
 public class Listeners implements Listener {
-  private final JavaPlugin plugin;
-  public Listeners(JavaPlugin plugin) {
-    this.plugin = plugin;
-  }
-
   @EventHandler
   public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-    FileConfiguration config = plugin.getConfig();
-    if(!config.getBoolean("leashing.villager"))
-      return;
+    FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
 
     Entity entity = event.getRightClicked();
     if((entity instanceof Villager && config.getBoolean("leashing.villager")) ||
@@ -61,7 +53,7 @@ public class Listeners implements Listener {
     if(mother.getCustomName() == null || father.getCustomName() == null)
       return;
 
-    String[] firstNames = plugin.getConfig().getStringList("names.first").toArray(new String[0]);
+    String[] firstNames = BillzoVillagers.getPlugin().getConfig().getStringList("names.first").toArray(new String[0]);
     if(firstNames.length < 1)
       return;
 

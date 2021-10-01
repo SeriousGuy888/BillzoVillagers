@@ -11,11 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 public class TaskNameVillagers extends BukkitRunnable {
-  private final JavaPlugin plugin;
-  public TaskNameVillagers(JavaPlugin plugin) {
-    this.plugin = plugin;
-  }
-
   @Override
   public void run() {
     Bukkit.getWorlds().forEach(world -> {
@@ -27,8 +22,8 @@ public class TaskNameVillagers extends BukkitRunnable {
           return;
 
 
-        String[] firstNames = plugin.getConfig().getStringList("names.first").toArray(new String[0]);
-        String[] lastNames = plugin.getConfig().getStringList("names.last").toArray(new String[0]);
+        String[] firstNames = BillzoVillagers.getPlugin().getConfig().getStringList("names.first").toArray(new String[0]);
+        String[] lastNames = BillzoVillagers.getPlugin().getConfig().getStringList("names.last").toArray(new String[0]);
         if(firstNames.length < 1 || lastNames.length < 1)
           return;
 

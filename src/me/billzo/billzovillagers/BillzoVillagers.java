@@ -4,10 +4,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BillzoVillagers extends JavaPlugin {
+  private static BillzoVillagers plugin;
   FileConfiguration config = getConfig();
 
   @Override
   public void onEnable() {
+    plugin = this;
+
     config.addDefault("leashing.villager", true);
     config.addDefault("leashing.wandering_trader", true);
     config.addDefault("leashing.zombie_villager", false);
@@ -16,14 +19,18 @@ public class BillzoVillagers extends JavaPlugin {
     config.options().copyDefaults(true);
     saveConfig();
 
-    new TaskNameVillagers(this).runTaskTimer(this, 0L, 200L);
+    new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
 
-    getServer().getPluginManager().registerEvents(new Listeners(this), this);
+    getServer().getPluginManager().registerEvents(new Listeners(), this);
     this.getCommand("villager").setExecutor(new CommandVillager());
   }
 
   @Override
   public void onDisable() {
     System.out.println("f");
+  }
+
+  public static BillzoVillagers getPlugin() {
+    return plugin;
   }
 }
