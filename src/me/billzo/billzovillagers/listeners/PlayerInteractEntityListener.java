@@ -29,12 +29,8 @@ public class PlayerInteractEntityListener implements Listener {
         event.setCancelled(true);
         livingEntity.setLeashHolder(player);
         if(player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
-          ItemStack newHeldItem = heldItem;
-          newHeldItem.setAmount(newHeldItem.getAmount() - 1);
-          if(newHeldItem.getAmount() <= 0)
-            newHeldItem = new ItemStack(Material.AIR);
-
-          player.getInventory().setItemInMainHand(newHeldItem);
+          heldItem.setAmount(heldItem.getAmount() - 1);
+          player.getInventory().setItemInMainHand(heldItem);
         }
       }
     }
