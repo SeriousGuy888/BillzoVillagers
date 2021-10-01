@@ -5,7 +5,6 @@
       <configuration>
         <autoDetectTypes>
           <platformType>SPIGOT</platformType>
-          <platformType>MCP</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
@@ -27,17 +26,6 @@
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Stuff/Spigot/spigot-1.17.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../Stuff/Spigot/spigot-1.17.1.jar!/" />
-        </SOURCES>
       </library>
     </orderEntry>
   </component>
