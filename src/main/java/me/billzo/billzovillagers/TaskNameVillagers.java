@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Villager;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class TaskNameVillagers extends BukkitRunnable {
         Random generator = new Random();
         livingEntity.setCustomName(
             firstNames[generator.nextInt(firstNames.length)] + " " +
-            lastNames[generator.nextInt(lastNames.length)]);
+                lastNames[generator.nextInt(lastNames.length)]);
         livingEntity.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, livingEntity.getEyeLocation(), 15, 0.5, 0.5, 0.5);
       });
     });

@@ -1,9 +1,9 @@
 name: BillzoVillagers
-description: Enslave and abuse villagers to your sadistic heart's content!
-version: ${project.version}
-author: SeriousGuy888
+version: '${project.version}'
 main: me.billzo.billzovillagers.BillzoVillagers
 api-version: 1.17
+authors: [ SeriousGuy888 ]
+description: Enslave and abuse villagers to your sadistic heart's content!
 commands:
   villager:
     description: this is a command

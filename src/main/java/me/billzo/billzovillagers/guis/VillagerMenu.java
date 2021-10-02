@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class VillagerMenu implements Listener {
-//  private Inventory gui;
+  //  private Inventory gui;
   private Villager villager;
 
   @EventHandler
@@ -27,6 +27,7 @@ public class VillagerMenu implements Listener {
       String guiTitle = villager.getCustomName();
       if(guiTitle == null)
         guiTitle = "Villager Menu";
+
 
       ChestGui gui = new ChestGui(1, guiTitle);
       gui.setOnGlobalClick(evt -> evt.setCancelled(true));
