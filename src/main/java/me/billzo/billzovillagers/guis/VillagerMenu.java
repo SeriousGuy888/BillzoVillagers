@@ -14,10 +14,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class VillagerMenu implements Listener {
-  //  private Inventory gui;
-  private Villager villager;
+import java.util.Arrays;
 
+public class VillagerMenu implements Listener {
   @EventHandler
   public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
     Player player = event.getPlayer();
@@ -26,31 +25,33 @@ public class VillagerMenu implements Listener {
 
     if(entity instanceof Villager && player.isSneaking() && heldItem.getType().equals(Material.AIR)) {
       event.setCancelled(true);
-      villager = (Villager) entity;
+      Villager villager = (Villager) entity;
 
-      String guiTitle = villager.getCustomName();
-      if(guiTitle == null)
-        guiTitle = "Villager Menu";
-
+      String guiTitle = villager.getName();
 
       ChestGui gui = new ChestGui(3, guiTitle);
       gui.setOnGlobalClick(evt -> evt.setCancelled(true));
       gui.setOnGlobalDrag(evt -> evt.setCancelled(true));
 
       OutlinePane background = new OutlinePane(0, 0, 9, 3, Pane.Priority.LOWEST);
-      background.addItem(new GuiItem(createItem(Material.GRAY_STAINED_GLASS_PANE, 1, " ")));
+      background.addItem(new GuiItem(createItem(Material.LIGHT_GRAY_STAINED_GLASS_PANE, 1, " ")));
       background.setRepeat(true);
       gui.addPane(background);
+
+      OutlinePane navigationPane = new OutlinePane(4, 1, 1, 1);
+      navigationPane.addItem(new GuiItem(createItem(Material.BEDROCK, 1, "§6Villager Menu", "§eComing Soon")));
+      gui.addPane(navigationPane);
 
       gui.show(player);
     }
   }
 
-  private ItemStack createItem(Material material, int count, String name) {
+  private ItemStack createItem(Material material, int count, String name, String... lore) {
     ItemStack item = new ItemStack(material);
     item.setAmount(count);
     ItemMeta meta = item.getItemMeta();
     meta.setDisplayName(name);
+    meta.setLore(Arrays.asList(lore));
     item.setItemMeta(meta);
     return item;
   }
