@@ -25,7 +25,7 @@ public class FoodLevelChangeListener implements Listener {
     if(meatType.equals("villager")) {
       event.setCancelled(true);
       itemStack.setAmount(itemStack.getAmount() - 1);
-      player.setFoodLevel(player.getFoodLevel() + 10); // steak restores 8
+      player.setFoodLevel(Math.min(player.getFoodLevel() + 10, 20)); // steak restores 8
       player.setSaturation(Math.min(player.getSaturation() + 14, player.getFoodLevel())); // steak restores 12.8
     }
   }
