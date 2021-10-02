@@ -1,6 +1,6 @@
 name: BillzoVillagers
 description: Enslave and abuse villagers to your sadistic heart's content!
-version: 0.1.0
+version: ${project.version}
 author: SeriousGuy888
 main: me.billzo.billzovillagers.BillzoVillagers
 api-version: 1.17

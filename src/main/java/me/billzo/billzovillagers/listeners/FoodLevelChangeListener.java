@@ -2,7 +2,7 @@ package me.billzo.billzovillagers.listeners;
 
 import me.billzo.billzovillagers.BillzoVillagers;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -12,7 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 public class FoodLevelChangeListener implements Listener {
   @EventHandler
   public void onFoodLevelChange(FoodLevelChangeEvent event) {
-    HumanEntity player = event.getEntity();
+    Player player = (Player) event.getEntity();
     ItemStack itemStack = event.getItem();
     if(itemStack == null)
       return;
