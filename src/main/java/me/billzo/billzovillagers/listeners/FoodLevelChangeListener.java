@@ -1,6 +1,7 @@
 package me.billzo.billzovillagers.listeners;
 
 import me.billzo.billzovillagers.BillzoVillagers;
+import me.billzo.billzovillagers.utils.MeatManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,18 +14,13 @@ public class FoodLevelChangeListener implements Listener {
   @EventHandler
   public void onFoodLevelChange(FoodLevelChangeEvent event) {
     Player player = (Player) event.getEntity();
-    ItemStack itemStack = event.getItem();
-    if(itemStack == null)
+    ItemStack item = event.getItem();
+    if(item == null)
       return;
 
-    String meatType = itemStack
-        .getItemMeta()
-        .getPersistentDataContainer()
-        .get(new NamespacedKey(BillzoVillagers.getPlugin(), "meat_type"), PersistentDataType.STRING);
-
-    if(meatType.equals("villager")) {
+    if(new MeatManager().isVillagerMeat(item)) {
       event.setCancelled(true);
-      itemStack.setAmount(itemStack.getAmount() - 1);
+      item.setAmount(item.getAmount() - 1);
       player.setFoodLevel(Math.min(player.getFoodLevel() + 10, 20)); // steak restores 8
       player.setSaturation(Math.min(player.getSaturation() + 14, player.getFoodLevel())); // steak restores 12.8
     }
