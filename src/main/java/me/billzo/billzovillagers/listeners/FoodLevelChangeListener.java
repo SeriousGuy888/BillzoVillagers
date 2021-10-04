@@ -1,14 +1,11 @@
 package me.billzo.billzovillagers.listeners;
 
-import me.billzo.billzovillagers.BillzoVillagers;
 import me.billzo.billzovillagers.utils.MeatManager;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 
 public class FoodLevelChangeListener implements Listener {
   @EventHandler
