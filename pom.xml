@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.billzo</groupId>
+    <groupId>io.github.seriousguy888</groupId>
     <artifactId>BillzoVillagers</artifactId>
     <version>0.2.1</version>
     <packaging>jar</packaging>
@@ -37,7 +37,7 @@
                     <relocations>
                         <relocation>
                             <pattern>com.github.stefvanschie.inventoryframework</pattern>
-                            <shadedPattern>me.billzo.billzovillagers.inventoryframework</shadedPattern>
+                            <shadedPattern>io.github.seriousguy888.billzovillagers.inventoryframework</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

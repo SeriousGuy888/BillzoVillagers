@@ -1,6 +1,6 @@
-package me.billzo.billzovillagers;
+package io.github.seriousguy888.billzovillagers;
 
-import me.billzo.billzovillagers.utils.VillagerRegistrationUtil;
+import io.github.seriousguy888.billzovillagers.utils.VillagerRegistrationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;

@@ -1,6 +1,6 @@
-package me.billzo.billzovillagers.listeners;
+package io.github.seriousguy888.billzovillagers.listeners;
 
-import me.billzo.billzovillagers.utils.VillagerRegistrationUtil;
+import io.github.seriousguy888.billzovillagers.utils.VillagerRegistrationUtil;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

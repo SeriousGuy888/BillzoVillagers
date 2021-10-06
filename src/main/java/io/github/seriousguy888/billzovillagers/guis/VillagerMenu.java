@@ -1,4 +1,4 @@
-package me.billzo.billzovillagers.guis;
+package io.github.seriousguy888.billzovillagers.guis;
 
 import com.github.stefvanschie.inventoryframework.gui.GuiItem;
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui;

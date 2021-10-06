@@ -1,6 +1,6 @@
-package me.billzo.billzovillagers.listeners;
+package io.github.seriousguy888.billzovillagers.listeners;
 
-import me.billzo.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

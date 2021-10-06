@@ -1,6 +1,6 @@
-package me.billzo.billzovillagers.listeners;
+package io.github.seriousguy888.billzovillagers.listeners;
 
-import me.billzo.billzovillagers.utils.MeatManager;
+import io.github.seriousguy888.billzovillagers.utils.MeatManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.WanderingTrader;

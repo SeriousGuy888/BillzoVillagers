@@ -1,4 +1,4 @@
-package me.billzo.billzovillagers;
+package io.github.seriousguy888.billzovillagers;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;

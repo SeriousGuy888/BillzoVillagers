@@ -1,7 +1,10 @@
-package me.billzo.billzovillagers;
+package io.github.seriousguy888.billzovillagers;
 
-import me.billzo.billzovillagers.guis.VillagerMenu;
-import me.billzo.billzovillagers.listeners.*;
+import io.github.seriousguy888.billzovillagers.guis.VillagerMenu;
+import io.github.seriousguy888.billzovillagers.listeners.EntityBreedListener;
+import io.github.seriousguy888.billzovillagers.listeners.EntityDeathListener;
+import io.github.seriousguy888.billzovillagers.listeners.FoodLevelChangeListener;
+import io.github.seriousguy888.billzovillagers.listeners.PlayerInteractEntityListener;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

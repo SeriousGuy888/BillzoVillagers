@@ -1,6 +1,6 @@
-package me.billzo.billzovillagers.utils;
+package io.github.seriousguy888.billzovillagers.utils;
 
-import me.billzo.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
