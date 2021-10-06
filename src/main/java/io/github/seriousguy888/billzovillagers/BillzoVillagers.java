@@ -9,6 +9,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public class BillzoVillagers extends JavaPlugin {
   private static BillzoVillagers plugin;
   FileConfiguration config = getConfig();
@@ -27,7 +29,7 @@ public class BillzoVillagers extends JavaPlugin {
 
     new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
     registerListeners();
-    this.getCommand("villager").setExecutor(new CommandVillager());
+    registerCommands();
   }
 
   private void registerListeners() {
@@ -39,6 +41,10 @@ public class BillzoVillagers extends JavaPlugin {
     pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
 
     pluginManager.registerEvents(new VillagerMenu(), this);
+  }
+
+  private void registerCommands() {
+    Objects.requireNonNull(this.getCommand("villager")).setExecutor(new CommandVillager());
   }
 
   @Override
