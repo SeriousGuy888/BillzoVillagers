@@ -10,6 +10,9 @@ import org.bukkit.inventory.ItemStack;
 public class FoodLevelChangeListener implements Listener {
   @EventHandler
   public void onFoodLevelChange(FoodLevelChangeEvent event) {
+    if(!(event.getEntity() instanceof Player))
+      return;
+
     Player player = (Player) event.getEntity();
     ItemStack item = event.getItem();
     if(item == null)
