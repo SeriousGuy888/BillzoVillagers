@@ -4,6 +4,7 @@ import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class MeatManager {
@@ -16,10 +17,16 @@ public class MeatManager {
   }
 
   public boolean isVillagerMeat(ItemStack item) {
-    String meatType = item
-        .getItemMeta()
+    ItemMeta meta = item.getItemMeta();
+    if(meta == null)
+      return false;
+
+    String meatType = meta
         .getPersistentDataContainer()
         .get(new NamespacedKey(BillzoVillagers.getPlugin(), "meat_type"), PersistentDataType.STRING);
+
+    if(meatType == null)
+      return false;
     return meatType.equals("villager");
   }
 }
