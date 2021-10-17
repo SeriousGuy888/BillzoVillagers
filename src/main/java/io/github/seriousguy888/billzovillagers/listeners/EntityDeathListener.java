@@ -1,7 +1,9 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
 import io.github.seriousguy888.billzovillagers.utils.MeatManager;
-import org.bukkit.entity.Entity;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.WanderingTrader;
 import org.bukkit.event.EventHandler;
@@ -13,12 +15,24 @@ import java.util.Random;
 public class EntityDeathListener implements Listener {
   @EventHandler
   public void onEntityDeath(EntityDeathEvent event) {
-    Entity entity = event.getEntity();
-    if((entity instanceof Villager) || (entity instanceof WanderingTrader)) {
-      boolean wanderingTrader = entity instanceof WanderingTrader;
+    LivingEntity victim = event.getEntity();
+    Player killer = victim.getKiller();
+
+    if((victim instanceof Villager) || (victim instanceof WanderingTrader)) {
+      boolean wanderingTrader = victim instanceof WanderingTrader;
       ItemStack itemStack = new MeatManager().getVillagerMeat(wanderingTrader);
-      itemStack.setAmount(new Random().nextInt(3) + 1);
-      entity.getWorld().dropItem(entity.getLocation(), itemStack);
+
+      int amount;
+      int randomBound = 3;
+      if(killer != null) { // if a player kills, check for looting and apply accordingly
+        ItemStack weapon = killer.getInventory().getItemInMainHand();
+        int lootingLvl = weapon.getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS);
+        randomBound += lootingLvl; // https://minecraft.fandom.com/wiki/Looting#Usage
+      }
+
+      amount = new Random().nextInt(randomBound) + 1;
+      itemStack.setAmount(amount);
+      victim.getWorld().dropItem(victim.getLocation(), itemStack);
     }
   }
 }
