@@ -1,14 +1,21 @@
 package io.github.seriousguy888.billzovillagers.utils;
 
 import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Villager;
 
 import java.util.Random;
 
 public class VillagerRegistrationUtil {
-  private String[] firstNames = BillzoVillagers.getPlugin().getConfig().getStringList("names.first").toArray(new String[0]);
-  private String[] lastNames = BillzoVillagers.getPlugin().getConfig().getStringList("names.last").toArray(new String[0]);
-  private Random random = new Random();
+  private final FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
+
+  private final String[] firstNames = config.getStringList("names.first").toArray(new String[0]);
+  private final String[] lastNames = config.getStringList("names.last").toArray(new String[0]);
+
+  private final boolean enableMiddleNames = config.getBoolean("naming.middle_names.enabled");
+  private final double middleNameChance = config.getDouble("naming.middle_names.chance_percentage");
+
+  private final Random random = new Random();
 
   public void nameBredVillager(Villager child, Villager mother, Villager father) {
     if(mother.getCustomName() == null || father.getCustomName() == null)
@@ -18,14 +25,22 @@ public class VillagerRegistrationUtil {
 
     String motherLastName = getLastNameOfName(mother.getCustomName());
     String fatherLastName = getLastNameOfName(father.getCustomName());
+
+    String childFirstName = getRandomFirstName();
+    String childMiddleName = getRandomLastName(); // choose a random name from last names as a middle name
     String childLastName;
 
-    if(motherLastName.equals(fatherLastName) || random.nextInt(10) == 0)
+    if(motherLastName.equals(fatherLastName) || random.nextInt(10) == 0) {
       childLastName = String.format("%s-%s", motherLastName, fatherLastName);
-    else
+    } else {
       childLastName = random.nextBoolean() ? motherLastName : fatherLastName;
+    }
 
-    child.setCustomName(String.format("%s %s", getRandomFirstName(), childLastName));
+    // if percentage chance, give the child a middle name
+    String childFullName = random.nextInt(100) <= middleNameChance
+      ? String.format("%s %s %s", childFirstName, childMiddleName, childLastName)
+      : String.format("%s %s", childFirstName, childLastName);
+    child.setCustomName(childFullName);
   }
 
   private String getLastNameOfName(String name) {
