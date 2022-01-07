@@ -12,9 +12,6 @@ public class VillagerRegistrationUtil {
   private final String[] firstNames = config.getStringList("names.first").toArray(new String[0]);
   private final String[] lastNames = config.getStringList("names.last").toArray(new String[0]);
 
-  private final boolean enableMiddleNames = config.getBoolean("naming.middle_names.enabled");
-  private final double middleNameChance = config.getDouble("naming.middle_names.chance_percentage");
-
   private final Random random = new Random();
 
   public void nameBredVillager(Villager child, Villager mother, Villager father) {
@@ -37,7 +34,7 @@ public class VillagerRegistrationUtil {
     }
 
     // if percentage chance, give the child a middle name
-    String childFullName = enableMiddleNames && random.nextInt(100) <= middleNameChance
+    String childFullName = shouldUseMiddleName()
       ? String.format("%s %s %s", childFirstName, childMiddleName, childLastName)
       : String.format("%s %s", childFirstName, childLastName);
     child.setCustomName(childFullName);
@@ -45,6 +42,11 @@ public class VillagerRegistrationUtil {
 
   private String getLastNameOfName(String name) {
     return name.substring(name.lastIndexOf(" ") + 1);
+  }
+  private boolean shouldUseMiddleName() {
+    final boolean enableMiddleNames = config.getBoolean("naming.middle_names.enabled");
+    final double middleNameChance = config.getDouble("naming.middle_names.chance_percentage");
+    return enableMiddleNames && new Random().nextInt(100) <= middleNameChance;
   }
 
   private String getRandomFirstName() {
@@ -54,6 +56,8 @@ public class VillagerRegistrationUtil {
     return lastNames[random.nextInt(lastNames.length)];
   }
   public String getRandomFullName() {
-    return String.format("%s %s", getRandomFirstName(), getRandomLastName());
+    return shouldUseMiddleName()
+        ? String.format("%s %s %s", getRandomFirstName(), getRandomLastName(), getRandomLastName())
+        : String.format("%s %s", getRandomFirstName(), getRandomLastName());
   }
 }
