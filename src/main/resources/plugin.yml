@@ -3,7 +3,7 @@ version: '${project.version}'
 main: io.github.seriousguy888.billzovillagers.BillzoVillagers
 api-version: 1.17
 authors: [ SeriousGuy888 ]
-description: Enslave and abuse villagers to your sadistic heart's content!
+description: Enslave and abuse villagers to your sadistic heart's content! Also villagers get names.
 commands:
   villager:
     description: this is a command
