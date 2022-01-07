@@ -37,7 +37,7 @@ public class VillagerRegistrationUtil {
     }
 
     // if percentage chance, give the child a middle name
-    String childFullName = random.nextInt(100) <= middleNameChance
+    String childFullName = enableMiddleNames && random.nextInt(100) <= middleNameChance
       ? String.format("%s %s %s", childFirstName, childMiddleName, childLastName)
       : String.format("%s %s", childFirstName, childLastName);
     child.setCustomName(childFullName);
