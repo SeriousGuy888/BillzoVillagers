@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers;
 
-import io.github.seriousguy888.billzovillagers.utils.VillagerRegistrationUtil;
+import io.github.seriousguy888.billzovillagers.utils.VillagerNamer;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;
@@ -20,7 +20,7 @@ public class TaskNameVillagers extends BukkitRunnable {
         if(livingEntity.getCustomName() != null)
           return;
 
-        livingEntity.setCustomName(new VillagerRegistrationUtil().getRandomFullName());
+        livingEntity.setCustomName(new VillagerNamer().getRandomFullName());
         livingEntity.getWorld()
             .spawnParticle(Particle.VILLAGER_HAPPY, livingEntity.getEyeLocation(), 15, 0.5, 0.5, 0.5);
       });

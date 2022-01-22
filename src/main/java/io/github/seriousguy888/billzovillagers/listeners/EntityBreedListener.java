@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
-import io.github.seriousguy888.billzovillagers.utils.VillagerRegistrationUtil;
+import io.github.seriousguy888.billzovillagers.utils.VillagerNamer;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +16,6 @@ public class EntityBreedListener implements Listener {
     Villager mother = (Villager) event.getMother();
     Villager father = (Villager) event.getFather();
 
-    new VillagerRegistrationUtil().nameBredVillager(child, mother, father);
+    new VillagerNamer().nameBredVillager(child, mother, father);
   }
 }

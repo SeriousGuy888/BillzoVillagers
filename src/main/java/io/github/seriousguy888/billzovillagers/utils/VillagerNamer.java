@@ -6,7 +6,7 @@ import org.bukkit.entity.Villager;
 
 import java.util.Random;
 
-public class VillagerRegistrationUtil {
+public class VillagerNamer {
   private final FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
 
   private final String[] firstNames = config.getStringList("names.first").toArray(new String[0]);
