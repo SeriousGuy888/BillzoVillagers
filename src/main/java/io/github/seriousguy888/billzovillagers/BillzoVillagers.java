@@ -1,10 +1,7 @@
 package io.github.seriousguy888.billzovillagers;
 
 import io.github.seriousguy888.billzovillagers.guis.VillagerMenu;
-import io.github.seriousguy888.billzovillagers.listeners.EntityBreedListener;
-import io.github.seriousguy888.billzovillagers.listeners.EntityDeathListener;
-import io.github.seriousguy888.billzovillagers.listeners.FoodLevelChangeListener;
-import io.github.seriousguy888.billzovillagers.listeners.PlayerInteractEntityListener;
+import io.github.seriousguy888.billzovillagers.listeners.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,6 +29,7 @@ public class BillzoVillagers extends JavaPlugin {
 
     pluginManager.registerEvents(new EntityBreedListener(), this);
     pluginManager.registerEvents(new EntityDeathListener(), this);
+    pluginManager.registerEvents(new EntityDamageListener(), this);
     pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
 
