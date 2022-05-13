@@ -1,7 +1,13 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
+import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.MessageEmbed;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
+import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Villager;
@@ -11,7 +17,11 @@ import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.awt.*;
+
 public class EntityDamageListener implements Listener {
+  FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
+
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
     Entity victim = event.getEntity();
@@ -38,5 +48,13 @@ public class EntityDamageListener implements Listener {
     }
 
     Bukkit.broadcastMessage(deathMessage);
+    TextChannel channel = BillzoVillagers.getPlugin().getDiscordChannel();
+    if(channel != null) {
+      MessageEmbed embed = new EmbedBuilder()
+          .setColor(new Color(0))
+          .setDescription(deathMessage)
+          .build();
+      channel.sendMessageEmbeds(embed).queue();
+    }
   }
 }

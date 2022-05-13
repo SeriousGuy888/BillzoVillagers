@@ -1,5 +1,7 @@
 package io.github.seriousguy888.billzovillagers;
 
+import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import io.github.seriousguy888.billzovillagers.guis.VillagerMenu;
 import io.github.seriousguy888.billzovillagers.listeners.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -39,6 +41,16 @@ public class BillzoVillagers extends JavaPlugin {
   private void registerCommands() {
     Objects.requireNonNull(this.getCommand("villager")).setExecutor(new CommandVillager());
   }
+
+  public TextChannel getDiscordChannel() {
+    String channelName = config.getString("discordsrv.channel_name");
+
+    boolean discordSrvPresent = getServer().getPluginManager().getPlugin("DiscordSRV") != null;
+    return discordSrvPresent
+      ? DiscordSRV.getPlugin().getDestinationTextChannelForGameChannelName(channelName)
+      : null;
+  }
+
 
   @Override
   public void onDisable() {

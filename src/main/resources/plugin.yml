@@ -4,6 +4,7 @@ main: io.github.seriousguy888.billzovillagers.BillzoVillagers
 api-version: 1.18
 authors: [ SeriousGuy888 ]
 description: Enslave and abuse villagers to your sadistic heart's content! Also villagers get names.
+softdepend: [ DiscordSRV ]
 commands:
   villager:
     description: this is a command

@@ -6,6 +6,11 @@ leashing:
   villager: true
   wandering_trader: true
   zombie_villager: false
+discordsrv:
+  # a channel defined in discordsrv config
+  # just leave it as "global" if you don't know what this is
+  # set to an empty string "" to disable
+  channel_name: global
 names:
   first:
     - Aaliyah
