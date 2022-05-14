@@ -4,6 +4,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import io.github.seriousguy888.billzovillagers.guis.VillagerMenu;
 import io.github.seriousguy888.billzovillagers.listeners.*;
+import io.github.seriousguy888.billzovillagers.utils.UpdateChecker;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,7 @@ public class BillzoVillagers extends JavaPlugin {
 
     new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
     registerListeners();
+    new UpdateChecker().checkForUpdates();
   }
 
   private void registerListeners() {
