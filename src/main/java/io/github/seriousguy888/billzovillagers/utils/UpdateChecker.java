@@ -43,7 +43,7 @@ public class UpdateChecker {
       JsonObject releaseJsonObject = gson.fromJson(response.body(), JsonObject.class);
 
       // get the latest release version on github and the version currently installed on the server
-      String installedVersion = "0.0.0.1"; // BillzoVillagers.getPlugin().getDescription().getVersion();
+      String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
       latestVersion = releaseJsonObject.get("tag_name").getAsString();
       latestReleasePageURL = "https://github.com/SeriousGuy888/BillzoVillagers/releases/" + latestVersion;
       logger.info("Latest release found on GitHub: " + latestVersion);
