@@ -2,7 +2,6 @@ package io.github.seriousguy888.billzovillagers;
 
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
-import io.github.seriousguy888.billzovillagers.guis.VillagerMenu;
 import io.github.seriousguy888.billzovillagers.listeners.*;
 import io.github.seriousguy888.billzovillagers.utils.UpdateChecker;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -34,8 +33,6 @@ public class BillzoVillagers extends JavaPlugin {
     pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
     pluginManager.registerEvents(new PlayerJoinListener(), this);
-
-    pluginManager.registerEvents(new VillagerMenu(), this);
   }
 
   public TextChannel getDiscordChannel() {
