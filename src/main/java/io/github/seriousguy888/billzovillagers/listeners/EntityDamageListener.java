@@ -31,13 +31,14 @@ public class EntityDamageListener implements Listener {
       return;
 
     String villName = villager.getName();
-    String deathMessage = villName + " died from " + event.getCause().name().toLowerCase();
+    String damageCause = event.getCause().name().toLowerCase().replaceAll("_", "");
+    String deathMessage = villName + " died from " + damageCause;
 
     if(event instanceof EntityDamageByEntityEvent damageByEntityEvent) {
       Entity attacker = damageByEntityEvent.getDamager();
       if(attacker instanceof Projectile projectile && projectile.getShooter() != null) {
         attacker = (Entity) projectile.getShooter();
-        deathMessage = villName + " was shot by " + attacker.getName() + " with " + projectile.getName();
+        deathMessage = villName + " was killed by " + attacker.getName() + " with " + projectile.getName();
       } else {
         deathMessage = villName + " was killed by " + attacker.getName();
       }
