@@ -13,7 +13,9 @@ import java.net.http.HttpResponse;
 import java.util.logging.Logger;
 
 public class UpdateChecker {
-  private boolean updateAvailable = false;
+  private static boolean updateAvailable = false;
+  private static String latestVersion;
+  private static String latestReleasePageURL;
 
   /**
    * Sends a GET request to the plugin's github repo, and checks if there is a release
@@ -41,14 +43,14 @@ public class UpdateChecker {
       JsonObject releaseJsonObject = gson.fromJson(response.body(), JsonObject.class);
 
       // get the latest release version on github and the version currently installed on the server
-      String latestVersion = releaseJsonObject.get("tag_name").getAsString();
-      String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
+      String installedVersion = "0.0.0.1"; // BillzoVillagers.getPlugin().getDescription().getVersion();
+      latestVersion = releaseJsonObject.get("tag_name").getAsString();
+      latestReleasePageURL = "https://github.com/SeriousGuy888/BillzoVillagers/releases/" + latestVersion;
       logger.info("Latest release found on GitHub: " + latestVersion);
 
       // check if the latest found version is newer than the current version
       if(compareVersions(latestVersion, installedVersion) > 0) {
-        logger.info("Newer version available! https://github.com/SeriousGuy888/BillzoVillagers/releases/"
-            + latestVersion);
+        logger.info("Newer version available! " + latestReleasePageURL);
         updateAvailable = true;
       } else {
         logger.info("Up to date.");
@@ -58,8 +60,14 @@ public class UpdateChecker {
     }
   }
 
-  public boolean isUpdateAvailable() {
+  public static boolean isUpdateAvailable() {
     return updateAvailable;
+  }
+  public static String getLatestVersion() {
+    return latestVersion;
+  }
+  public static String getLatestReleasePageURL() {
+    return latestReleasePageURL;
   }
 
   // stolen from https://www.baeldung.com/java-comparing-versions

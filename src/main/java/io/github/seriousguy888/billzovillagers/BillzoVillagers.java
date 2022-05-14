@@ -33,6 +33,7 @@ public class BillzoVillagers extends JavaPlugin {
     pluginManager.registerEvents(new EntityDamageListener(), this);
     pluginManager.registerEvents(new FoodLevelChangeListener(), this);
     pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
+    pluginManager.registerEvents(new PlayerJoinListener(), this);
 
     pluginManager.registerEvents(new VillagerMenu(), this);
   }
