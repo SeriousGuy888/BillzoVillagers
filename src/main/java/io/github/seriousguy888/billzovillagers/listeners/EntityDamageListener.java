@@ -1,6 +1,5 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
-import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.MessageEmbed;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
@@ -19,11 +18,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.awt.*;
-import java.util.Locale;
 
 public class EntityDamageListener implements Listener {
-  FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
-
   @EventHandler
   public void onEntityDamage(EntityDamageEvent event) {
     Entity victim = event.getEntity();
@@ -50,7 +46,12 @@ public class EntityDamageListener implements Listener {
         deathMessage = villName + " died from " + block.getType().name().toLowerCase();
     }
 
-    Bukkit.broadcastMessage(deathMessage);
+    final String finalDeathMessage = deathMessage;
+    Bukkit.getOnlinePlayers().forEach(player -> {
+      if(BillzoVillagers.getPlugin().villagerDeathMessagesEnabled.get(player)) {
+        player.sendMessage(finalDeathMessage);
+      }
+    });
 
     TextChannel channel = BillzoVillagers.getPlugin().getDiscordChannel();
     if(channel != null) {
