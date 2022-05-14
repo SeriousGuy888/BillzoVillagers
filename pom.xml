@@ -30,31 +30,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-                    <relocations>
-                        <relocation>
-                            <pattern>com.github.stefvanschie.inventoryframework</pattern>
-                            <shadedPattern>io.github.seriousguy888.billzovillagers.inventoryframework</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
@@ -76,10 +51,6 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
-        <repository>
             <id>dv8tion</id>
             <name>m2-dv8tion</name>
             <url>https://m2.dv8tion.net/releases</url>
@@ -96,11 +67,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.stefvanschie.inventoryframework</groupId>
-            <artifactId>IF</artifactId>
-            <version>0.10.5</version>
         </dependency>
         <dependency>
             <groupId>com.discordsrv</groupId>
