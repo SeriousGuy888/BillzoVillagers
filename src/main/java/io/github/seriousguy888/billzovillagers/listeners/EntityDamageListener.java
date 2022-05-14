@@ -33,7 +33,7 @@ public class EntityDamageListener implements Listener {
       return;
 
     String villName = villager.getName();
-    String damageCause = event.getCause().name().toLowerCase().replaceAll("_", "");
+    String damageCause = event.getCause().name().toLowerCase().replaceAll("_", " ");
     String deathMessage = villName + " died from " + damageCause;
 
     if(event instanceof EntityDamageByEntityEvent damageByEntityEvent) {
