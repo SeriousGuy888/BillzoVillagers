@@ -55,8 +55,10 @@ public class UpdateChecker {
       } else {
         logger.info("Up to date.");
       }
-    } catch (IOException | InterruptedException ex) {
-      logger.warning("Failed to get latest version from GitHub.");
+    } catch (IOException | InterruptedException | NullPointerException ex) {
+      logger.warning("Error occurred while fetching latest version from GitHub.");
+      ex.printStackTrace();
+      logger.warning("Skipped update checking.");
     }
   }
 
