@@ -83,20 +83,25 @@ public class DeathMessageListener implements Listener {
     private TranslatableComponent getDeathMessage(EntityDamageEvent event) {
         EntityDamageEvent.DamageCause cause = event.getCause();
         Entity victim = event.getEntity();
-        Entity attacker = null;
-        Projectile projectile = null;
+        Entity attacker = null; // The entity who gets credit for the kill
+        Entity directDamager = null; // A projectile (arrow) or explosive (TNT) that actually dealt the damage
 
         if (event instanceof EntityDamageByEntityEvent damageByEntityEvent) {
             attacker = damageByEntityEvent.getDamager();
 
-            if (attacker instanceof Projectile proj && proj.getShooter() != null) {
-                projectile = proj;
-                attacker = (Entity) proj.getShooter();
+            if (attacker instanceof Projectile projectile && projectile.getShooter() != null) {
+                directDamager = projectile;
+                attacker = (Entity) projectile.getShooter();
+            }
+
+            if (attacker instanceof TNTPrimed tnt && tnt.getSource() != null) {
+                directDamager = tnt;
+                attacker = tnt.getSource();
             }
         }
 
         BaseComponent victimName = getVictimName(victim);
-        BaseComponent attackerName = getAttackerName(attacker, projectile);
+        BaseComponent attackerName = getAttackerName(attacker, directDamager);
 
         BaseComponent weaponName = null;
         if (attacker instanceof LivingEntity) {
@@ -109,7 +114,7 @@ public class DeathMessageListener implements Listener {
             }
         }
 
-        return getDeathMessage(event, cause, victimName, attackerName, weaponName, attacker, projectile);
+        return getDeathMessage(event, cause, victimName, attackerName, weaponName, attacker, directDamager);
     }
 
     private TranslatableComponent getDeathMessage(@Nullable EntityDamageEvent damageEvent,
@@ -118,7 +123,7 @@ public class DeathMessageListener implements Listener {
                                                   @Nullable BaseComponent attackerName,
                                                   @Nullable BaseComponent weaponName,
                                                   @Nullable Entity attacker,
-                                                  @Nullable Projectile projectile) {
+                                                  @Nullable Entity directDamager) {
 
         TranslatableComponent message = new TranslatableComponent();
         message.setFallback("(death message provided invalid translation key!!!)" +
@@ -159,13 +164,13 @@ public class DeathMessageListener implements Listener {
                 message.setTranslate("death.attack.explosion");
                 canHaveItemAfterPlayer = true;
 
-                if (damageEvent instanceof EntityDamageByEntityEvent damageByEntityEvent) {
-                    Entity damager = damageByEntityEvent.getDamager();
-                    if (damager instanceof Firework) {
-                        message.setTranslate("death.attack.fireworks");
-                        canHaveItemAfterPlayer = false;
-                    }
+                if (directDamager instanceof Firework) {
+                    message.setTranslate("death.attack.fireworks");
+                    canHaveItemAfterPlayer = false;
                 }
+
+                // This case also includes TNT and TNT minecarts, but their death messages
+                // don't need any special treatment here.
             }
             case VOID -> message.setTranslate("death.attack.outOfWorld");
             case LIGHTNING -> message.setTranslate("death.attack.lightningBolt");
@@ -196,13 +201,14 @@ public class DeathMessageListener implements Listener {
                 }
             }
             case PROJECTILE -> {
-                if (projectile == null) {
                 canAddDotPlayer = false;
+
+                if (directDamager == null) {
                     message.setTranslate("death.attack.thrown");
                     break;
                 }
 
-                switch (projectile.getType()) {
+                switch (directDamager.getType()) {
                     case ARROW, SPECTRAL_ARROW -> message.setTranslate("death.attack.arrow");
                     case FIREBALL, SMALL_FIREBALL -> message.setTranslate("death.attack.fireball");
                     case TRIDENT -> message.setTranslate("death.attack.trident");
@@ -260,7 +266,7 @@ public class DeathMessageListener implements Listener {
     }
 
     @Nullable
-    private BaseComponent getAttackerName(Entity attacker, Projectile projectile) {
+    private BaseComponent getAttackerName(Entity attacker, Entity directDamager) {
         BaseComponent attackerName;
 
         if (attacker != null) {
@@ -272,8 +278,8 @@ public class DeathMessageListener implements Listener {
                         : new TranslatableComponent(attacker.getType().getTranslationKey());
             }
         } else {
-            attackerName = projectile != null
-                    ? new TranslatableComponent(projectile.getType().getTranslationKey())
+            attackerName = directDamager != null
+                    ? new TranslatableComponent(directDamager.getType().getTranslationKey())
                     : null;
         }
 
