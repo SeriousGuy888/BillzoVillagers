@@ -46,7 +46,7 @@ public class MainConfig extends ConfigReader {
         if(!(getFirstNames().isEmpty() && getLastNames().isEmpty())) {
             plugin.getLogger().info("Name list present in main config. Attempting to migrate to new location...");
 
-            boolean backupSuccessful = this.saveBackupCopy();
+            boolean backupSuccessful = this.saveBackupCopy() && nameListConfig.saveBackupCopy();
             if (!backupSuccessful) {
                 plugin.getLogger().warning("Backup failed; aborting migration.");
                 return;
