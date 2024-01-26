@@ -6,7 +6,7 @@
 
     <groupId>io.github.seriousguy888</groupId>
     <artifactId>BillzoVillagers</artifactId>
-    <version>0.6.0-dev</version>
+    <version>0.6.0</version>
     <packaging>jar</packaging>
 
     <name>BillzoVillagers</name>
