@@ -8,7 +8,6 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -16,16 +15,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTransformEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.util.Objects;
 
 public class DeathMessageListener implements Listener {
+
     @EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
+    public void onVillagerDeath(EntityDamageEvent event) {
         Entity victim = event.getEntity();
         if (!(victim instanceof Villager villager))
             return;
@@ -33,28 +34,47 @@ public class DeathMessageListener implements Listener {
             return;
 
         TranslatableComponent translatedDeathMessage = getDeathMessage(event);
+        broadcastDeathMessage(translatedDeathMessage);
+    }
 
+    @EventHandler
+    public void onVillagerTransformIntoWitch(EntityTransformEvent event) {
+        // This is a separate event handler that listens for witch transformations.
+        //
+        // It has to exist because, for some reason, villagers transforming into witches
+        // isn't listened for by the death or damage events even though zombie villager
+        // transformations are. Kind of weird.
+        //
+        // This handler makes sure a death message is still sent when this happens.
+
+        if (event.getTransformReason() != EntityTransformEvent.TransformReason.LIGHTNING)
+            return;
+        if (!(event.getEntity() instanceof Villager villager))
+            return;
+
+        TranslatableComponent deathMessage = getDeathMessage(null,
+                EntityDamageEvent.DamageCause.LIGHTNING,
+                getVictimName(villager),
+                null,
+                null,
+                null,
+                null);
+
+        broadcastDeathMessage(deathMessage);
+    }
+
+    private void broadcastDeathMessage(TranslatableComponent deathMessage) {
         Bukkit.getOnlinePlayers().forEach(player -> {
             if (BillzoVillagers.getPlugin().villagerDeathMessagesEnabled.get(player)) {
-                player.spigot().sendMessage(translatedDeathMessage);
+                player.spigot().sendMessage(deathMessage);
             }
         });
 
         TextChannel channel = BillzoVillagers.getPlugin().getDiscordChannel();
         if (channel != null) {
-//            Location location = villager.getLocation();
-//            String worldName = location.getWorld() != null
-//                    ? location.getWorld().getName()
-//                    : "unknown world";
-//            String locationFooter = "At "
-//                    + location.getBlockX() + " "
-//                    + location.getBlockY() + " "
-//                    + location.getBlockZ() + " in world "
-//                    + worldName.toUpperCase();
-
             MessageEmbed embed = new EmbedBuilder()
                     .setColor(new Color(0))
-                    .setDescription(translatedDeathMessage.toPlainText())
+                    .setDescription(deathMessage.toPlainText())
                     .build();
             channel.sendMessageEmbeds(embed).queue();
         }
@@ -75,11 +95,7 @@ public class DeathMessageListener implements Listener {
             }
         }
 
-
-        BaseComponent victimName = victim.getCustomName() != null
-                ? new net.md_5.bungee.api.chat.TextComponent(victim.getCustomName())
-                : new TranslatableComponent(victim.getType().getTranslationKey());
-
+        BaseComponent victimName = getVictimName(victim);
         BaseComponent attackerName = getAttackerName(attacker, projectile);
 
         BaseComponent weaponName = null;
@@ -92,6 +108,17 @@ public class DeathMessageListener implements Listener {
                 }
             }
         }
+
+        return getDeathMessage(event, cause, victimName, attackerName, weaponName, attacker, projectile);
+    }
+
+    private TranslatableComponent getDeathMessage(@Nullable EntityDamageEvent damageEvent,
+                                                  EntityDamageEvent.DamageCause cause,
+                                                  BaseComponent victimName,
+                                                  @Nullable BaseComponent attackerName,
+                                                  @Nullable BaseComponent weaponName,
+                                                  @Nullable Entity attacker,
+                                                  @Nullable Projectile projectile) {
 
         TranslatableComponent message = new TranslatableComponent();
         message.setFallback("(death message provided invalid translation key!!!)" +
@@ -132,7 +159,7 @@ public class DeathMessageListener implements Listener {
                 message.setTranslate("death.attack.explosion");
                 canHaveItemAfterPlayer = true;
 
-                if (event instanceof EntityDamageByEntityEvent damageByEntityEvent) {
+                if (damageEvent instanceof EntityDamageByEntityEvent damageByEntityEvent) {
                     Entity damager = damageByEntityEvent.getDamager();
                     if (damager instanceof Firework) {
                         message.setTranslate("death.attack.fireworks");
@@ -152,7 +179,7 @@ public class DeathMessageListener implements Listener {
             case FREEZE -> message.setTranslate("death.attack.freeze");
             case SONIC_BOOM -> message.setTranslate("death.attack.sonic_boom");
             case CONTACT -> {
-                if (event instanceof EntityDamageByBlockEvent damageByBlockEvent) {
+                if (damageEvent instanceof EntityDamageByBlockEvent damageByBlockEvent) {
                     Block block = damageByBlockEvent.getDamager();
                     if (block == null) {
                         break;
@@ -220,6 +247,12 @@ public class DeathMessageListener implements Listener {
         }
 
         return message;
+    }
+
+    private BaseComponent getVictimName(Entity victim) {
+        return victim.getCustomName() != null
+                ? new net.md_5.bungee.api.chat.TextComponent(victim.getCustomName())
+                : new TranslatableComponent(victim.getType().getTranslationKey());
     }
 
     @Nullable
