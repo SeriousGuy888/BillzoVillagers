@@ -44,6 +44,9 @@ public class VillagerNamer {
 
         if (/*motherLastName.equals(fatherLastName) ||*/ random.nextInt(10) == 0) {
             childLastName = String.format("%s-%s", motherLastName, fatherLastName);
+        } else if (random.nextInt(20) == 0) {
+            // Small chance for the child to choose a completely different last name
+            childLastName = getRandomLastName();
         } else {
             childLastName = random.nextBoolean() ? motherLastName : fatherLastName;
         }
