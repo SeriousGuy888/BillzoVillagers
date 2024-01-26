@@ -1,6 +1,7 @@
 package io.github.seriousguy888.billzovillagers.utils;
 
 import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.config.MainConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Villager;
 
@@ -12,19 +13,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class VillagerNamer {
-    private final FileConfiguration config = BillzoVillagers.getPlugin().getConfig();
+    private final MainConfig mainConfig = BillzoVillagers.getPlugin().getMainConfig();
+    private final Random random = new Random();
 
     private final List<String>
             firstNames,
             lastNames,
             middleNames;
 
-    private final Random random = new Random();
-
     public VillagerNamer() {
-        firstNames = config.getStringList("names.first");
-        lastNames = config.getStringList("names.last");
-
+        firstNames = mainConfig.getFirstNames();
+        lastNames = mainConfig.getLastNames();
         middleNames = Stream
                 .concat(firstNames.stream(), lastNames.stream())
                 .collect(Collectors.toList());
@@ -63,9 +62,8 @@ public class VillagerNamer {
     }
 
     private boolean shouldUseMiddleName() {
-        final boolean enableMiddleNames = config.getBoolean("naming.middle_names.enabled");
-        final double middleNameChance = config.getDouble("naming.middle_names.chance_percentage");
-        return enableMiddleNames && new Random().nextInt(100) <= middleNameChance;
+        return (mainConfig.getMiddleNamesEnabled() &&
+                random.nextInt(100) <= mainConfig.getMiddleNamesChancePercentage());
     }
 
     private String getRandomFirstName() {
