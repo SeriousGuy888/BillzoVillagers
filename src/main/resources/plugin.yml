@@ -5,7 +5,7 @@ description:
 version: '${project.version}'
 website: https://github.com/SeriousGuy888/BillzoVillagers
 main: io.github.seriousguy888.billzovillagers.BillzoVillagers
-api-version: 1.18
+api-version: 1.20
 authors: [ SeriousGuy888 ]
 softdepend: [ DiscordSRV ]
 commands:
