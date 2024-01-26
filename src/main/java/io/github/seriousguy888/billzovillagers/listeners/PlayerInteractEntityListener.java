@@ -16,28 +16,35 @@ public class PlayerInteractEntityListener implements Listener {
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         MainConfig mainConfig = BillzoVillagers.getPlugin().getMainConfig();
 
+        HumanEntity player = event.getPlayer();
         Entity entity = event.getRightClicked();
-        if ((entity instanceof Villager && mainConfig.canLeashVillager()) ||
-                (entity instanceof ZombieVillager && mainConfig.canLeashZombieVillager()) ||
-                (entity instanceof WanderingTrader && mainConfig.canLeashWanderingTrader())) {
+        ItemStack heldItem = player.getInventory().getItemInMainHand();
 
-            LivingEntity livingEntity = (LivingEntity) entity;
 
-            if (!livingEntity.isLeashed()) {
-                HumanEntity player = event.getPlayer();
-                ItemStack heldItem = player.getInventory().getItemInMainHand();
-                if (!heldItem.isSimilar(new ItemStack(Material.LEAD)))
-                    return;
+        // Return if entity is not a living entity or if it's already leashed
+        if (!(entity instanceof LivingEntity livingEntity) || livingEntity.isLeashed()) {
+            return;
+        }
 
-                event.setCancelled(true);
-                livingEntity.setLeashHolder(player);
-                if (player.getGameMode().equals(GameMode.SURVIVAL) ||
-                        player.getGameMode().equals(GameMode.ADVENTURE)) {
-                    heldItem.setAmount(heldItem.getAmount() - 1);
-                    player.getInventory().setItemInMainHand(heldItem);
-                }
-            }
+        // Return if this isn't one of the mobs configured to be leashable
+        if (!((livingEntity instanceof Villager && mainConfig.canLeashVillager()) ||
+                (livingEntity instanceof ZombieVillager && mainConfig.canLeashZombieVillager()) ||
+                (livingEntity instanceof WanderingTrader && mainConfig.canLeashWanderingTrader())
+        )) return;
 
+
+        // Return if player is not holding a lead
+        if (!heldItem.isSimilar(new ItemStack(Material.LEAD))) {
+            return;
+        }
+
+        event.setCancelled(true); // Cancel event (to prevent opening the trading menu, for example)
+        livingEntity.setLeashHolder(player); // Attach the entity to the player
+
+        // Remove a lead from the player's hand
+        if (player.getGameMode().equals(GameMode.SURVIVAL) || player.getGameMode().equals(GameMode.ADVENTURE)) {
+            heldItem.setAmount(heldItem.getAmount() - 1);
+            player.getInventory().setItemInMainHand(heldItem);
         }
     }
 }
