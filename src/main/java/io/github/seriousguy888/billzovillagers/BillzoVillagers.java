@@ -61,7 +61,7 @@ public class BillzoVillagers extends JavaPlugin {
         pluginManager.registerEvents(new DeathMessageListener(), this);
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
         pluginManager.registerEvents(new JoinLeaveListener(), this);
-        pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
+        pluginManager.registerEvents(new LeashingListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
     }
 

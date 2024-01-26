@@ -4,14 +4,13 @@ import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInteractEntityListener implements Listener {
+public class LeashingListener implements Listener {
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         MainConfig mainConfig = BillzoVillagers.getPlugin().getMainConfig();
