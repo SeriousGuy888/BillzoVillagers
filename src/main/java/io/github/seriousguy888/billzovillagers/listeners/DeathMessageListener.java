@@ -197,6 +197,7 @@ public class DeathMessageListener implements Listener {
             }
             case PROJECTILE -> {
                 if (projectile == null) {
+                canAddDotPlayer = false;
                     message.setTranslate("death.attack.thrown");
                     break;
                 }
@@ -206,7 +207,10 @@ public class DeathMessageListener implements Listener {
                     case FIREBALL, SMALL_FIREBALL -> message.setTranslate("death.attack.fireball");
                     case TRIDENT -> message.setTranslate("death.attack.trident");
                     case WITHER_SKULL -> message.setTranslate("death.attack.witherSkull");
-                    case LLAMA_SPIT -> message.setTranslate("death.attack.genericKill");
+                    case LLAMA_SPIT -> {
+                        message.setTranslate("death.attack.genericKill");
+                        canAddDotPlayer = true;
+                    }
                     default -> message.setTranslate("death.attack.thrown");
                 }
             }
