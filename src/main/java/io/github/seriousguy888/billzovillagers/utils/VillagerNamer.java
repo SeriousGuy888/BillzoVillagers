@@ -42,7 +42,7 @@ public class VillagerNamer {
         String childFirstName = getRandomFirstName();
         String childLastName;
 
-        if (motherLastName.equals(fatherLastName) || random.nextInt(10) == 0) {
+        if (/*motherLastName.equals(fatherLastName) ||*/ random.nextInt(10) == 0) {
             childLastName = String.format("%s-%s", motherLastName, fatherLastName);
         } else {
             childLastName = random.nextBoolean() ? motherLastName : fatherLastName;
