@@ -4,8 +4,10 @@ import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import io.github.seriousguy888.billzovillagers.commands.ToggleVillagerDeathMessagesCommand;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
+import io.github.seriousguy888.billzovillagers.config.NameListConfig;
 import io.github.seriousguy888.billzovillagers.listeners.*;
 import io.github.seriousguy888.billzovillagers.utils.UpdateChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -13,6 +15,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -26,12 +29,24 @@ public class BillzoVillagers extends JavaPlugin {
     public HashMap<Player, Boolean> villagerDeathMessagesEnabled;
 
     private MainConfig mainConfig;
+    private NameListConfig nameListConfig;
 
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void onEnable() {
         plugin = this;
-        mainConfig = new MainConfig(this, "config.yml");
+
+        try {
+            mainConfig = new MainConfig(this, "config");
+            nameListConfig = new NameListConfig(this, "villager_names");
+        } catch (FileNotFoundException e) {
+            getLogger().severe("Failed to initialise a config file. Cannot continue; disabling plugin.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        mainConfig.attemptMigration(nameListConfig);
+
 
         new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
         new UpdateChecker().checkForUpdates();
@@ -92,5 +107,9 @@ public class BillzoVillagers extends JavaPlugin {
 
     public MainConfig getMainConfig() {
         return mainConfig;
+    }
+
+    public NameListConfig getNameListConfig() {
+        return nameListConfig;
     }
 }

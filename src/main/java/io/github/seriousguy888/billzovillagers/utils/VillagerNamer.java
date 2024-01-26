@@ -2,6 +2,7 @@ package io.github.seriousguy888.billzovillagers.utils;
 
 import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
+import io.github.seriousguy888.billzovillagers.config.NameListConfig;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Villager;
 
@@ -22,8 +23,9 @@ public class VillagerNamer {
             middleNames;
 
     public VillagerNamer() {
-        firstNames = mainConfig.getFirstNames();
-        lastNames = mainConfig.getLastNames();
+        NameListConfig nameListConfig = BillzoVillagers.getPlugin().getNameListConfig();
+        firstNames = nameListConfig.getFirstNames();
+        lastNames = nameListConfig.getLastNames();
         middleNames = Stream
                 .concat(firstNames.stream(), lastNames.stream())
                 .collect(Collectors.toList());

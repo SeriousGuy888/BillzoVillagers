@@ -4,21 +4,21 @@ import io.github.seriousguy888.billzovillagers.BillzoVillagers;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.logging.Level;
 
 public abstract class ConfigReader {
     protected final BillzoVillagers plugin;
 
+    private final String name;
     private final File file;
     private final boolean mustRetainComments;
     protected FileConfiguration config;
 
-    public ConfigReader(BillzoVillagers plugin, String name, boolean mustRetainComments) {
+    public ConfigReader(BillzoVillagers plugin, String name, boolean mustRetainComments)
+            throws FileNotFoundException {
         this.plugin = plugin;
+        this.name = name;
         this.file = new File(plugin.getDataFolder(), name + ".yml");
         this.mustRetainComments = mustRetainComments;
 
@@ -26,7 +26,7 @@ public abstract class ConfigReader {
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void loadFromDisk() {
+    private void loadFromDisk() throws FileNotFoundException {
         InputStream defaultConfigStream = plugin.getResource(file.getName());
 
         if (!file.exists()) {
@@ -38,7 +38,7 @@ public abstract class ConfigReader {
             } else {
                 plugin.getLogger().severe("Resource `" + file.getName() + "` does not exist. " +
                         "Cannot initialise custom config.");
-                return;
+                throw new FileNotFoundException("Expected resource " + file.getName() + " is missing from the jar.");
             }
         }
 
@@ -85,5 +85,21 @@ public abstract class ConfigReader {
         } catch (IOException e) {
             plugin.getLogger().log(Level.SEVERE, "Unable to save config file `" + file.getName() + "`!", e);
         }
+    }
+
+    protected boolean saveBackupCopy() {
+        File backupFile = new File(plugin.getDataFolder(), name + "-" + System.currentTimeMillis() + ".yml.old");
+
+        try {
+            config.save(backupFile);
+        } catch (IOException e) {
+            plugin.getLogger().warning("Tried and failed to back up `" + file.getName() + "` to `" +
+                    backupFile.getName() + "`.\n" + e);
+            return false;
+        }
+
+        plugin.getLogger().info("Successfully backed up `" + file.getName() + "` to `" +
+                backupFile.getName() + "`.");
+        return true;
     }
 }
