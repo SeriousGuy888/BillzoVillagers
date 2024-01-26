@@ -25,6 +25,14 @@ public class MainConfig extends ConfigReader {
         return config.getStringList("names.last");
     }
 
+    public int getFoodPoints() {
+        return config.getInt("villagermeat.food_points");
+    }
+
+    public float getSaturationPoints() {
+        return (float) config.getDouble("villagermeat.saturation_points");
+    }
+
     public String getDiscordSrvChannelName() {
         return config.getString("discordsrv.channel_name", "");
     }
