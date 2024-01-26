@@ -42,20 +42,19 @@ public class DeathMessageListener implements Listener {
 
         TextChannel channel = BillzoVillagers.getPlugin().getDiscordChannel();
         if (channel != null) {
-            Location location = villager.getLocation();
-            String worldName = location.getWorld() != null
-                    ? location.getWorld().getName()
-                    : "unknown world";
-            String locationFooter = "At "
-                    + location.getBlockX() + " "
-                    + location.getBlockY() + " "
-                    + location.getBlockZ() + " in world "
-                    + worldName.toUpperCase();
+//            Location location = villager.getLocation();
+//            String worldName = location.getWorld() != null
+//                    ? location.getWorld().getName()
+//                    : "unknown world";
+//            String locationFooter = "At "
+//                    + location.getBlockX() + " "
+//                    + location.getBlockY() + " "
+//                    + location.getBlockZ() + " in world "
+//                    + worldName.toUpperCase();
 
             MessageEmbed embed = new EmbedBuilder()
                     .setColor(new Color(0))
                     .setDescription(translatedDeathMessage.toPlainText())
-                    .setFooter(locationFooter)
                     .build();
             channel.sendMessageEmbeds(embed).queue();
         }
