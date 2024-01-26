@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 import java.util.Objects;
 
-public class EntityDamageListener implements Listener {
+public class DeathMessageListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         Entity victim = event.getEntity();

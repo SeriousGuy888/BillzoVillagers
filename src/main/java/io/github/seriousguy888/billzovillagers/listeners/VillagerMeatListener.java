@@ -1,7 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
 import io.github.seriousguy888.billzovillagers.utils.MeatManager;
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -13,7 +12,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
-public class EntityDeathListener implements Listener {
+public class VillagerMeatListener implements Listener {
   @EventHandler
   public void onEntityDeath(EntityDeathEvent event) {
     LivingEntity victim = event.getEntity();
