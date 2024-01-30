@@ -4,6 +4,7 @@ import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.MessageEmbed;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
@@ -111,7 +112,8 @@ public class DeathMessageListener implements Listener {
             if (equipment != null) {
                 ItemStack heldItem = equipment.getItemInMainHand();
                 if (heldItem.hasItemMeta() && Objects.requireNonNull(heldItem.getItemMeta()).hasDisplayName()) {
-                    weaponName = new TextComponent("[" + heldItem.getItemMeta().getDisplayName() + "]");
+                    weaponName = new TextComponent(
+                            "[" + heldItem.getItemMeta().getDisplayName() + ChatColor.RESET + "]");
                 }
             }
         }
