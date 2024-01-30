@@ -14,13 +14,15 @@ import java.util.logging.Logger;
 
 public class UpdateChecker {
     private final BillzoVillagers plugin;
+    private final String githubRepo;
 
-    private static boolean updateAvailable = false;
-    private static String latestVersion;
-    private static String latestReleasePageURL;
+    private boolean updateAvailable = false;
+    private String latestVersion;
+    private String latestReleasePageURL;
 
-    public UpdateChecker(BillzoVillagers plugin) {
+    public UpdateChecker(BillzoVillagers plugin, String githubRepo) {
         this.plugin = plugin;
+        this.githubRepo = githubRepo;
     }
 
     /**
@@ -30,7 +32,7 @@ public class UpdateChecker {
      */
     public void checkForUpdates() {
         Logger logger = plugin.getLogger();
-        String url = "https://api.github.com/repos/SeriousGuy888/BillzoVillagers/releases/latest";
+        String url = "https://api.github.com/repos/" + githubRepo + "/releases/latest";
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
@@ -53,7 +55,7 @@ public class UpdateChecker {
                 // get the latest release version on github and the version currently installed on the server
                 String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
                 latestVersion = releaseJsonObject.get("tag_name").getAsString();
-                latestReleasePageURL = "https://github.com/SeriousGuy888/BillzoVillagers/releases/" + latestVersion;
+                latestReleasePageURL = "https://github.com/" + githubRepo + "/releases/" + latestVersion;
                 logger.info("Latest release found on GitHub: " + latestVersion);
 
                 // check if the latest found version is newer than the current version
@@ -71,15 +73,15 @@ public class UpdateChecker {
 
     }
 
-    public static boolean isUpdateAvailable() {
+    public boolean isUpdateAvailable() {
         return updateAvailable;
     }
 
-    public static String getLatestVersion() {
+    public String getLatestVersion() {
         return latestVersion;
     }
 
-    public static String getLatestReleasePageURL() {
+    public String getLatestReleasePageURL() {
         return latestReleasePageURL;
     }
 

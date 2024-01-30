@@ -11,23 +11,30 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinListener implements Listener {
-  @EventHandler
+    private final BillzoVillagers plugin;
+
+    public PlayerJoinListener(BillzoVillagers plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler
   public void onJoin(PlayerJoinEvent event) {
     Player player = event.getPlayer();
 
     if(!player.isOp())
       return;
-    if(!UpdateChecker.isUpdateAvailable())
+    if(!plugin.getUpdateChecker().isUpdateAvailable())
       return;
 
     player.sendMessage("\n" + ChatColor.AQUA + ChatColor.BOLD
         + "A new version of the BillzoVillagers plugin is available." + ChatColor.AQUA
         + "\nCurrently installed version: v" + BillzoVillagers.getPlugin().getDescription().getVersion()
-        + "\nLatest available version: " + UpdateChecker.getLatestVersion());
+        + "\nLatest available version: " + plugin.getUpdateChecker().getLatestVersion());
 
-    TextComponent linkMessage = new TextComponent(ChatColor.BLUE + "" + ChatColor.UNDERLINE
-        + "Updated Release Page" + "\n");
-    linkMessage.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, UpdateChecker.getLatestReleasePageURL()));
+    TextComponent linkMessage = new TextComponent(
+            "" + ChatColor.BLUE + ChatColor.UNDERLINE + "Updated Release Page" + "\n");
+    linkMessage.setClickEvent(
+            new ClickEvent(ClickEvent.Action.OPEN_URL, plugin.getUpdateChecker().getLatestReleasePageURL()));
     player.spigot().sendMessage(linkMessage);
   }
 }

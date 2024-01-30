@@ -31,6 +31,8 @@ public class BillzoVillagers extends JavaPlugin {
     private MainConfig mainConfig;
     private NameListConfig nameListConfig;
 
+    private UpdateChecker updateChecker;
+
     @Override
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void onEnable() {
@@ -49,7 +51,6 @@ public class BillzoVillagers extends JavaPlugin {
 
 
         new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
-        new UpdateChecker(this).checkForUpdates();
         registerListeners();
         registerCommands();
 
@@ -66,6 +67,10 @@ public class BillzoVillagers extends JavaPlugin {
         dataManager = new DataManager();
         villagerDeathMessagesEnabled = new HashMap<>();
         dataManager.loadPlayerData(); // load data of all online players
+
+
+        updateChecker = new UpdateChecker(this, "SeriousGuy888/BillzoVillagers");
+        updateChecker.checkForUpdates();
     }
 
     private void registerListeners() {
@@ -77,7 +82,7 @@ public class BillzoVillagers extends JavaPlugin {
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
         pluginManager.registerEvents(new JoinLeaveListener(), this);
         pluginManager.registerEvents(new LeashingListener(), this);
-        pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new PlayerJoinListener(this), this);
     }
 
     private void registerCommands() {
@@ -111,5 +116,9 @@ public class BillzoVillagers extends JavaPlugin {
 
     public NameListConfig getNameListConfig() {
         return nameListConfig;
+    }
+
+    public UpdateChecker getUpdateChecker() {
+        return updateChecker;
     }
 }
