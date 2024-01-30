@@ -111,7 +111,7 @@ public class DeathMessageListener implements Listener {
             if (equipment != null) {
                 ItemStack heldItem = equipment.getItemInMainHand();
                 if (heldItem.hasItemMeta() && Objects.requireNonNull(heldItem.getItemMeta()).hasDisplayName()) {
-                    weaponName = new net.md_5.bungee.api.chat.TextComponent("[" + heldItem.getItemMeta().getDisplayName() + "]");
+                    weaponName = new TextComponent("[" + heldItem.getItemMeta().getDisplayName() + "]");
                 }
             }
         }
@@ -263,7 +263,7 @@ public class DeathMessageListener implements Listener {
 
     private BaseComponent getVictimName(Entity victim) {
         return victim.getCustomName() != null
-                ? new net.md_5.bungee.api.chat.TextComponent(victim.getCustomName())
+                ? new TextComponent(victim.getCustomName())
                 : new TranslatableComponent(victim.getType().getTranslationKey());
     }
 
@@ -273,7 +273,7 @@ public class DeathMessageListener implements Listener {
 
         if (attacker != null) {
             if (attacker instanceof Player attackerP) {
-                attackerName = new net.md_5.bungee.api.chat.TextComponent(attackerP.getName());
+                attackerName = new TextComponent(attackerP.getName());
             } else {
                 attackerName = attacker.getCustomName() != null
                         ? new TextComponent(attacker.getCustomName())
