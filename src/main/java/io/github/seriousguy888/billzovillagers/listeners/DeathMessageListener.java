@@ -92,11 +92,13 @@ public class DeathMessageListener implements Listener {
             if (attacker instanceof Projectile projectile && projectile.getShooter() != null) {
                 directDamager = projectile;
                 attacker = (Entity) projectile.getShooter();
-            }
-
-            if (attacker instanceof TNTPrimed tnt && tnt.getSource() != null) {
+            } else if (attacker instanceof TNTPrimed tnt && tnt.getSource() != null) {
                 directDamager = tnt;
                 attacker = tnt.getSource();
+            } else if (attacker instanceof FallingBlock fallingBlock) {
+                // (for anvils)
+                directDamager = fallingBlock;
+                attacker = null;
             }
         }
 
