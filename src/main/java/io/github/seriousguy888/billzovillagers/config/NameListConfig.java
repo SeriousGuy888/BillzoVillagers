@@ -10,14 +10,14 @@ public class NameListConfig extends ConfigReader {
         super(plugin, name, true);
     }
 
-    public boolean migrateFromMainConfig(List<List<String>> importedNames) {
-        if (importedNames == null || importedNames.size() < 2) {
+    public boolean migrateFromMainConfig(List<String> personalNames, List<String> familyNames) {
+        if (personalNames.isEmpty() || familyNames.isEmpty()) {
             plugin.getLogger().warning("Received invalid name list data to migrate.");
             return false;
         }
 
-        config.set("personal_names", importedNames.get(0));
-        config.set("family_names", importedNames.get(1));
+        config.set("personal_names", personalNames);
+        config.set("family_names", familyNames);
         saveToDisk();
 
         plugin.getLogger().info("Migrated name list from main config file into name list file.");

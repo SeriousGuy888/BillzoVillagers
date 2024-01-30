@@ -43,35 +43,31 @@ public class MainConfig extends ConfigReader {
     }
 
     public void attemptMigration(NameListConfig nameListConfig) {
-        if(!(getFirstNames().isEmpty() && getLastNames().isEmpty())) {
-            plugin.getLogger().info("Name list present in main config. Attempting to migrate to new location...");
+        List<String> firstNames = config.getStringList("names.first");
+        List<String> lastNames = config.getStringList("names.last");
 
-            boolean backupSuccessful = this.saveBackupCopy() && nameListConfig.saveBackupCopy();
-            if (!backupSuccessful) {
-                plugin.getLogger().warning("Backup failed; aborting migration.");
-                return;
-            }
-
-            List<String> firsts = getFirstNames();
-            List<String> lasts = getLastNames();
-
-            boolean success = nameListConfig.migrateFromMainConfig(List.of(firsts, lasts));
-
-            if(success) {
-                config.set("names.first", null);
-                config.set("names.last", null);
-                saveToDisk();
-
-                plugin.getLogger().info("Removed name list from main config file.");
-            }
+        // getStringList() returns a list and never null. if the lists are empty, they likely
+        // arent actually there in the config file.
+        if (firstNames.isEmpty() || lastNames.isEmpty()) {
+            return;
         }
-    }
 
-    private List<String> getFirstNames() {
-        return config.getStringList("names.first");
-    }
+        plugin.getLogger().info("Name list present in main config. Attempting to migrate to new location...");
 
-    private List<String> getLastNames() {
-        return config.getStringList("names.last");
+        boolean backupSuccessful = this.saveBackupCopy() && nameListConfig.saveBackupCopy();
+        if (!backupSuccessful) {
+            plugin.getLogger().warning("Backup failed; aborting migration.");
+            return;
+        }
+
+        boolean success = nameListConfig.migrateFromMainConfig(firstNames, lastNames);
+
+        if (success) {
+            config.set("names.first", null);
+            config.set("names.last", null);
+            saveToDisk();
+
+            plugin.getLogger().info("Removed name list from main config file.");
+        }
     }
 }
