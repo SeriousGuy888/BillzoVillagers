@@ -96,10 +96,6 @@ public class DeathMessageListener implements Listener {
             } else if (attacker instanceof TNTPrimed tnt && tnt.getSource() != null) {
                 directDamager = tnt;
                 attacker = tnt.getSource();
-            } else if (attacker instanceof FallingBlock fallingBlock) {
-                // (for anvils)
-                directDamager = fallingBlock;
-                attacker = null;
             }
         }
 
@@ -180,7 +176,10 @@ public class DeathMessageListener implements Listener {
             case LIGHTNING -> message.setTranslate("death.attack.lightningBolt");
             case STARVATION -> message.setTranslate("death.attack.starve");
             case WITHER -> message.setTranslate("death.attack.wither");
-            case FALLING_BLOCK -> message.setTranslate("death.attack.anvil");
+            case FALLING_BLOCK -> {
+                message.setTranslate("death.attack.anvil");
+                canAddDotPlayer = false; // needed because otherwise, the anvil will be identified as the killer
+            }
             case THORNS -> message.setTranslate("death.attack.thorns");
             case DRAGON_BREATH -> message.setTranslate("death.attack.dragonBreath");
             case HOT_FLOOR -> message.setTranslate("death.attack.hotFloor");
