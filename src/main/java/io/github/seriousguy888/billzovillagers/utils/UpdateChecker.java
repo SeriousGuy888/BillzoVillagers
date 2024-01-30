@@ -13,85 +13,96 @@ import java.net.http.HttpResponse;
 import java.util.logging.Logger;
 
 public class UpdateChecker {
-  private static boolean updateAvailable = false;
-  private static String latestVersion;
-  private static String latestReleasePageURL;
+    private final BillzoVillagers plugin;
 
-  /**
-   * Sends a GET request to the plugin's github repo, and checks if there is a release
-   * with a higher version number than the currently installed version. If there is, log
-   * that to the server console, and set updateAvailable to true.
-   */
-  public void checkForUpdates() {
-    Logger logger = Bukkit.getLogger();
-    String url = "https://api.github.com/repos/SeriousGuy888/BillzoVillagers/releases/latest";
+    private static boolean updateAvailable = false;
+    private static String latestVersion;
+    private static String latestReleasePageURL;
 
-    logger.info("Checking for updates...");
-    try {
-      // create and send http request to the github api
-      HttpClient httpClient = HttpClient.newBuilder().build();
-      HttpRequest request = HttpRequest
-          .newBuilder()
-          .uri(URI.create(url))
-          .header("content-type", "application/json")
-          .GET()
-          .build();
-      HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-      // parse json response
-      Gson gson = new Gson();
-      JsonObject releaseJsonObject = gson.fromJson(response.body(), JsonObject.class);
-
-      // get the latest release version on github and the version currently installed on the server
-      String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
-      latestVersion = releaseJsonObject.get("tag_name").getAsString();
-      latestReleasePageURL = "https://github.com/SeriousGuy888/BillzoVillagers/releases/" + latestVersion;
-      logger.info("Latest release found on GitHub: " + latestVersion);
-
-      // check if the latest found version is newer than the current version
-      if(compareVersions(latestVersion, installedVersion) > 0) {
-        logger.info("Newer version available! " + latestReleasePageURL);
-        updateAvailable = true;
-      } else {
-        logger.info("Up to date.");
-      }
-    } catch (IOException | InterruptedException | NullPointerException ex) {
-      logger.warning("Error occurred while fetching latest version from GitHub.");
-      ex.printStackTrace();
-      logger.warning("Skipped update checking.");
+    public UpdateChecker(BillzoVillagers plugin) {
+        this.plugin = plugin;
     }
-  }
 
-  public static boolean isUpdateAvailable() {
-    return updateAvailable;
-  }
-  public static String getLatestVersion() {
-    return latestVersion;
-  }
-  public static String getLatestReleasePageURL() {
-    return latestReleasePageURL;
-  }
+    /**
+     * Sends a GET request to the plugin's github repo, and checks if there is a release
+     * with a higher version number than the currently installed version. If there is, log
+     * that to the server console, and set updateAvailable to true.
+     */
+    public void checkForUpdates() {
+        Logger logger = plugin.getLogger();
+        String url = "https://api.github.com/repos/SeriousGuy888/BillzoVillagers/releases/latest";
 
-  // stolen from https://www.baeldung.com/java-comparing-versions
-  private int compareVersions(String version1, String version2) {
-    int comparisonResult = 0;
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-    version1 = version1.replaceAll("[^0-9.]", "");
-    version2 = version2.replaceAll("[^0-9.]", "");
+            logger.info("Checking for updates...");
+            try {
+                // create and send http request to the github api
+                HttpClient httpClient = HttpClient.newBuilder().build();
+                HttpRequest request = HttpRequest
+                        .newBuilder()
+                        .uri(URI.create(url))
+                        .header("content-type", "application/json")
+                        .GET()
+                        .build();
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-    String[] version1Splits = version1.split("\\.");
-    String[] version2Splits = version2.split("\\.");
-    int maxLengthOfVersionSplits = Math.max(version1Splits.length, version2Splits.length);
+                // parse json response
+                Gson gson = new Gson();
+                JsonObject releaseJsonObject = gson.fromJson(response.body(), JsonObject.class);
 
-    for (int i = 0; i < maxLengthOfVersionSplits; i++){
-      Integer v1 = i < version1Splits.length ? Integer.parseInt(version1Splits[i]) : 0;
-      Integer v2 = i < version2Splits.length ? Integer.parseInt(version2Splits[i]) : 0;
-      int compare = v1.compareTo(v2);
-      if (compare != 0) {
-        comparisonResult = compare;
-        break;
-      }
+                // get the latest release version on github and the version currently installed on the server
+                String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
+                latestVersion = releaseJsonObject.get("tag_name").getAsString();
+                latestReleasePageURL = "https://github.com/SeriousGuy888/BillzoVillagers/releases/" + latestVersion;
+                logger.info("Latest release found on GitHub: " + latestVersion);
+
+                // check if the latest found version is newer than the current version
+                if (compareVersions(latestVersion, installedVersion) > 0) {
+                    logger.info("Newer version available! " + latestReleasePageURL);
+                    updateAvailable = true;
+                } else {
+                    logger.info("Up to date.");
+                }
+            } catch (IOException | InterruptedException | NullPointerException ex) {
+                logger.warning("Skipped update checking because an error occurred " +
+                        "while fetching latest version from GitHub.\n" + ex);
+            }
+        });
+
     }
-    return comparisonResult;
-  }
+
+    public static boolean isUpdateAvailable() {
+        return updateAvailable;
+    }
+
+    public static String getLatestVersion() {
+        return latestVersion;
+    }
+
+    public static String getLatestReleasePageURL() {
+        return latestReleasePageURL;
+    }
+
+    // stolen from https://www.baeldung.com/java-comparing-versions
+    private int compareVersions(String version1, String version2) {
+        int comparisonResult = 0;
+
+        version1 = version1.replaceAll("[^0-9.]", "");
+        version2 = version2.replaceAll("[^0-9.]", "");
+
+        String[] version1Splits = version1.split("\\.");
+        String[] version2Splits = version2.split("\\.");
+        int maxLengthOfVersionSplits = Math.max(version1Splits.length, version2Splits.length);
+
+        for (int i = 0; i < maxLengthOfVersionSplits; i++) {
+            Integer v1 = i < version1Splits.length ? Integer.parseInt(version1Splits[i]) : 0;
+            Integer v2 = i < version2Splits.length ? Integer.parseInt(version2Splits[i]) : 0;
+            int compare = v1.compareTo(v2);
+            if (compare != 0) {
+                comparisonResult = compare;
+                break;
+            }
+        }
+        return comparisonResult;
+    }
 }

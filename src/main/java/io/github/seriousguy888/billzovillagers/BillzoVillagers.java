@@ -49,7 +49,7 @@ public class BillzoVillagers extends JavaPlugin {
 
 
         new TaskNameVillagers().runTaskTimer(plugin, 0L, 200L);
-        new UpdateChecker().checkForUpdates();
+        new UpdateChecker(this).checkForUpdates();
         registerListeners();
         registerCommands();
 
