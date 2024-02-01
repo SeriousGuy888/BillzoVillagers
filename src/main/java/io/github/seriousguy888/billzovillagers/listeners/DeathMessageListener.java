@@ -109,7 +109,7 @@ public class DeathMessageListener implements Listener {
                 ItemStack heldItem = equipment.getItemInMainHand();
                 if (heldItem.hasItemMeta() && Objects.requireNonNull(heldItem.getItemMeta()).hasDisplayName()) {
                     weaponName = new TextComponent(
-                            "[" + heldItem.getItemMeta().getDisplayName() + ChatColor.RESET + "]");
+                            "[" + heldItem.getItemMeta().getDisplayName() + "]");
                 }
             }
         }
