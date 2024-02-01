@@ -21,9 +21,6 @@ public class FoodLevelChangeListener implements Listener {
             return;
         }
 
-        event.setCancelled(true);
-        item.setAmount(item.getAmount() - 1);
-
         int newFoodLevel = Math.min(player.getFoodLevel() + mainConfig.getFoodPoints(), 20);
         float newSaturationLevel = Math.min(player.getSaturation() + mainConfig.getSaturationPoints(), newFoodLevel);
 
