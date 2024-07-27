@@ -72,7 +72,7 @@ public class Main extends JavaPlugin {
         dataManager.loadPlayerData(); // load data of all online players
 
 
-        updateChecker = new UpdateChecker(this, "SeriousGuy888/BillzoVillagers");
+        updateChecker = new UpdateChecker(this, "SeriousGuy888/VillagerMeat");
         updateChecker.checkForUpdates();
     }
 
