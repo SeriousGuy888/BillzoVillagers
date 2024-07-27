@@ -3,8 +3,7 @@ package io.github.seriousguy888.billzovillagers.listeners;
 import github.scarsz.discordsrv.dependencies.jda.api.EmbedBuilder;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.MessageEmbed;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
-import net.md_5.bungee.api.ChatColor;
+import io.github.seriousguy888.billzovillagers.Main;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
@@ -66,12 +65,12 @@ public class DeathMessageListener implements Listener {
 
     private void broadcastDeathMessage(TranslatableComponent deathMessage) {
         Bukkit.getOnlinePlayers().forEach(player -> {
-            if (BillzoVillagers.getPlugin().villagerDeathMessagesEnabled.get(player)) {
+            if (Main.getPlugin().villagerDeathMessagesEnabled.get(player)) {
                 player.spigot().sendMessage(deathMessage);
             }
         });
 
-        TextChannel channel = BillzoVillagers.getPlugin().getDiscordChannel();
+        TextChannel channel = Main.getPlugin().getDiscordChannel();
         if (channel != null) {
             MessageEmbed embed = new EmbedBuilder()
                     .setColor(new Color(0))

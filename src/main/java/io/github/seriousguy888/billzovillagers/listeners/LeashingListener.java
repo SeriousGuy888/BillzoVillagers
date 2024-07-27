@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class LeashingListener implements Listener {
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        MainConfig mainConfig = BillzoVillagers.getPlugin().getMainConfig();
+        MainConfig mainConfig = Main.getPlugin().getMainConfig();
 
         HumanEntity player = event.getPlayer();
         Entity entity = event.getRightClicked();

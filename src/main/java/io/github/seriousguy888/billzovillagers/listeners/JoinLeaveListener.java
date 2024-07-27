@@ -1,7 +1,7 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,9 +9,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinLeaveListener implements Listener {
-  BillzoVillagers plugin;
+  Main plugin;
   public JoinLeaveListener() {
-    plugin = BillzoVillagers.getPlugin();
+    plugin = Main.getPlugin();
   }
 
   @EventHandler

@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class BillzoVillagers extends JavaPlugin {
-    private static BillzoVillagers plugin;
+public class Main extends JavaPlugin {
+    private static Main plugin;
 
     public File dataFile;
     public FileConfiguration dataConfig;
@@ -108,7 +108,7 @@ public class BillzoVillagers extends JavaPlugin {
         getLogger().info("Unloading BillzoVillagers");
     }
 
-    public static BillzoVillagers getPlugin() {
+    public static Main getPlugin() {
         return plugin;
     }
 

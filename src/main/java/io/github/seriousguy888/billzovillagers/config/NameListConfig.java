@@ -1,12 +1,12 @@
 package io.github.seriousguy888.billzovillagers.config;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
 public class NameListConfig extends ConfigReader {
-    public NameListConfig(BillzoVillagers plugin, String name) throws FileNotFoundException {
+    public NameListConfig(Main plugin, String name) throws FileNotFoundException {
         super(plugin, name, true);
     }
 

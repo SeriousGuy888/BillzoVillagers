@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers.config;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -8,14 +8,14 @@ import java.io.*;
 import java.util.logging.Level;
 
 public abstract class ConfigReader {
-    protected final BillzoVillagers plugin;
+    protected final Main plugin;
 
     private final String name;
     private final File file;
     private final boolean mustRetainComments;
     protected FileConfiguration config;
 
-    public ConfigReader(BillzoVillagers plugin, String name, boolean mustRetainComments)
+    public ConfigReader(Main plugin, String name, boolean mustRetainComments)
             throws FileNotFoundException {
         this.plugin = plugin;
         this.name = name;

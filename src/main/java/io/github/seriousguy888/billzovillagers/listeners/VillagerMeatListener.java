@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -14,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 public class VillagerMeatListener implements Listener {
-    private final BillzoVillagers plugin;
+    private final Main plugin;
 
-    public VillagerMeatListener(BillzoVillagers plugin) {
+    public VillagerMeatListener(Main plugin) {
         this.plugin = plugin;
     }
 

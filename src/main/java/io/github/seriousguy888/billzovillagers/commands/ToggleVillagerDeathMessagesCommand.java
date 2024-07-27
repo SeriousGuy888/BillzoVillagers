@@ -1,6 +1,6 @@
 package io.github.seriousguy888.billzovillagers.commands;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class ToggleVillagerDeathMessagesCommand implements CommandExecutor {
-  BillzoVillagers plugin;
+  Main plugin;
   public ToggleVillagerDeathMessagesCommand() {
-    plugin = BillzoVillagers.getPlugin();
+    plugin = Main.getPlugin();
   }
 
   @Override

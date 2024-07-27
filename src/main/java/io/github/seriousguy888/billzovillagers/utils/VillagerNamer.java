@@ -1,20 +1,17 @@
 package io.github.seriousguy888.billzovillagers.utils;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
 import io.github.seriousguy888.billzovillagers.config.NameListConfig;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Villager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class VillagerNamer {
-    private final MainConfig mainConfig = BillzoVillagers.getPlugin().getMainConfig();
+    private final MainConfig mainConfig = Main.getPlugin().getMainConfig();
     private final Random random = new Random();
 
     private final List<String>
@@ -23,7 +20,7 @@ public class VillagerNamer {
             middleNames;
 
     public VillagerNamer() {
-        NameListConfig nameListConfig = BillzoVillagers.getPlugin().getNameListConfig();
+        NameListConfig nameListConfig = Main.getPlugin().getNameListConfig();
         firstNames = nameListConfig.getFirstNames();
         lastNames = nameListConfig.getLastNames();
         middleNames = Stream

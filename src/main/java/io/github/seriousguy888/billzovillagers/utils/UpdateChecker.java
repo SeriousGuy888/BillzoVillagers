@@ -2,7 +2,7 @@ package io.github.seriousguy888.billzovillagers.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;
@@ -13,14 +13,14 @@ import java.net.http.HttpResponse;
 import java.util.logging.Logger;
 
 public class UpdateChecker {
-    private final BillzoVillagers plugin;
+    private final Main plugin;
     private final String githubRepo;
 
     private boolean updateAvailable = false;
     private String latestVersion;
     private String latestReleasePageURL;
 
-    public UpdateChecker(BillzoVillagers plugin, String githubRepo) {
+    public UpdateChecker(Main plugin, String githubRepo) {
         this.plugin = plugin;
         this.githubRepo = githubRepo;
     }
@@ -53,7 +53,7 @@ public class UpdateChecker {
                 JsonObject releaseJsonObject = gson.fromJson(response.body(), JsonObject.class);
 
                 // get the latest release version on github and the version currently installed on the server
-                String installedVersion = BillzoVillagers.getPlugin().getDescription().getVersion();
+                String installedVersion = Main.getPlugin().getDescription().getVersion();
                 latestVersion = releaseJsonObject.get("tag_name").getAsString();
                 latestReleasePageURL = "https://github.com/" + githubRepo + "/releases/" + latestVersion;
                 logger.info("Latest release found on GitHub: " + latestVersion);

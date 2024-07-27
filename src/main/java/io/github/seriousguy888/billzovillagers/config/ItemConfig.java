@@ -1,12 +1,12 @@
 package io.github.seriousguy888.billzovillagers.config;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
+import io.github.seriousguy888.billzovillagers.Main;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.FileNotFoundException;
 
 public class ItemConfig extends ConfigReader {
-    public ItemConfig(BillzoVillagers plugin, String name) throws FileNotFoundException {
+    public ItemConfig(Main plugin, String name) throws FileNotFoundException {
         super(plugin, name, true);
     }
 

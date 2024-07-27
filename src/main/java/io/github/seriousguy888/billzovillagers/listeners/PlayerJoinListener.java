@@ -1,7 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
-import io.github.seriousguy888.billzovillagers.BillzoVillagers;
-import io.github.seriousguy888.billzovillagers.utils.UpdateChecker;
+import io.github.seriousguy888.billzovillagers.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -11,9 +10,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinListener implements Listener {
-    private final BillzoVillagers plugin;
+    private final Main plugin;
 
-    public PlayerJoinListener(BillzoVillagers plugin) {
+    public PlayerJoinListener(Main plugin) {
         this.plugin = plugin;
     }
 
@@ -28,7 +27,7 @@ public class PlayerJoinListener implements Listener {
 
     player.sendMessage("\n" + ChatColor.AQUA + ChatColor.BOLD
         + "A new version of the BillzoVillagers plugin is available." + ChatColor.AQUA
-        + "\nCurrently installed version: v" + BillzoVillagers.getPlugin().getDescription().getVersion()
+        + "\nCurrently installed version: v" + Main.getPlugin().getDescription().getVersion()
         + "\nLatest available version: " + plugin.getUpdateChecker().getLatestVersion());
 
     TextComponent linkMessage = new TextComponent(

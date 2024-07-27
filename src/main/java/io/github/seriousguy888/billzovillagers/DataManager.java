@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 
 public class DataManager {
-  private final BillzoVillagers plugin;
+  private final Main plugin;
   public DataManager() {
-    plugin = BillzoVillagers.getPlugin();
+    plugin = Main.getPlugin();
   }
 
   /**
@@ -45,11 +45,11 @@ public class DataManager {
    */
   public void savePlayerData(Player player) {
     String uuid = player.getUniqueId().toString();
-    Boolean enabled = BillzoVillagers.getPlugin().villagerDeathMessagesEnabled.get(player);
+    Boolean enabled = Main.getPlugin().villagerDeathMessagesEnabled.get(player);
 
     plugin.dataConfig.set(uuid + ".enabled", enabled);
     try {
-      plugin.dataConfig.save(BillzoVillagers.getPlugin().dataFile);
+      plugin.dataConfig.save(Main.getPlugin().dataFile);
     } catch (IOException e) {
       e.printStackTrace();
     }
