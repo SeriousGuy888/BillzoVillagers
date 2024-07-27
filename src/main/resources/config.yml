@@ -11,14 +11,3 @@ discordsrv:
   # just leave it as "global" if you don't know what this is
   # set to an empty string "" to disable
   channel_name: global
-
-# How much food and saturation villagermeat will restore when eaten.
-#
-# For comparison, vanilla Minecraft steak is worth:
-# → 8 hunger (4 drumsticks)
-# → 12.8 saturation points
-#
-# See also: https://minecraft.wiki/w/Hunger
-villagermeat:
-  food_points: 10 # 1 full drumstick in your hunger bar represents 2 hunger points
-  saturation_points: 14

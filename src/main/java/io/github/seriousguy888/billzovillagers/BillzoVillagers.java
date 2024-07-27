@@ -82,7 +82,6 @@ public class BillzoVillagers extends JavaPlugin {
         pluginManager.registerEvents(new EntityBreedListener(), this);
         pluginManager.registerEvents(new VillagerMeatListener(this), this);
         pluginManager.registerEvents(new DeathMessageListener(), this);
-        pluginManager.registerEvents(new EatListener(), this);
         pluginManager.registerEvents(new JoinLeaveListener(), this);
         pluginManager.registerEvents(new LeashingListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(this), this);
