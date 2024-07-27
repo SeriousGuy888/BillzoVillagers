@@ -1,4 +1,4 @@
-name: BillzoVillagers
+name: VillagerMeat
 description: >
   §3Automatically gives villagers names. When villagers die, a death message
   will be broadcasted for them. But don't be too sad; the villagers drop villager
@@ -6,7 +6,7 @@ description: >
   This plugin lets you abuse and mistreat villagers to your sadistic heart's content!
 version: '${project.version}'
 website: https://github.com/SeriousGuy888/BillzoVillagers
-main: io.github.seriousguy888.billzovillagers.BillzoVillagers
+main: io.github.seriousguy888.villagermeat.Main
 api-version: 1.21
 authors: [ SeriousGuy888 ]
 softdepend: [ DiscordSRV ]

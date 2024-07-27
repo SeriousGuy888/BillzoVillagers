@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.seriousguy888</groupId>
-    <artifactId>BillzoVillagers</artifactId>
     <version>0.6.2</version>
+    <artifactId>VillagerMeat</artifactId>
     <packaging>jar</packaging>
 
-    <name>BillzoVillagers</name>
+    <name>VillagerMeat</name>
 
     <description>Enslave and abuse villagers to your sadistic heart's content! Also villagers get names.</description>
     <properties>
