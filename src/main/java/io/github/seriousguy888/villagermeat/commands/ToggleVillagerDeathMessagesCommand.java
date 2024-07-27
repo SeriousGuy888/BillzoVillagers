@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers.commands;
+package io.github.seriousguy888.villagermeat.commands;
 
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

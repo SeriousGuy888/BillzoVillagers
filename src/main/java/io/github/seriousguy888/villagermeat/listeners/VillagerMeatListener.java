@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers.listeners;
+package io.github.seriousguy888.villagermeat.listeners;
 
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

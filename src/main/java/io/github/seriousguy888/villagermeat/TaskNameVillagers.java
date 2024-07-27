@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers;
+package io.github.seriousguy888.villagermeat;
 
-import io.github.seriousguy888.billzovillagers.utils.VillagerNamer;
+import io.github.seriousguy888.villagermeat.utils.VillagerNamer;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.LivingEntity;

@@ -1,13 +1,13 @@
-package io.github.seriousguy888.billzovillagers;
+package io.github.seriousguy888.villagermeat;
 
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
-import io.github.seriousguy888.billzovillagers.commands.ToggleVillagerDeathMessagesCommand;
-import io.github.seriousguy888.billzovillagers.config.ItemConfig;
-import io.github.seriousguy888.billzovillagers.config.MainConfig;
-import io.github.seriousguy888.billzovillagers.config.NameListConfig;
-import io.github.seriousguy888.billzovillagers.listeners.*;
-import io.github.seriousguy888.billzovillagers.utils.UpdateChecker;
+import io.github.seriousguy888.villagermeat.commands.ToggleVillagerDeathMessagesCommand;
+import io.github.seriousguy888.villagermeat.config.ItemConfig;
+import io.github.seriousguy888.villagermeat.config.MainConfig;
+import io.github.seriousguy888.villagermeat.config.NameListConfig;
+import io.github.seriousguy888.villagermeat.listeners.*;
+import io.github.seriousguy888.villagermeat.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

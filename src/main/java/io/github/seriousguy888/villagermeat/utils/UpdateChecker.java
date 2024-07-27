@@ -1,8 +1,8 @@
-package io.github.seriousguy888.billzovillagers.utils;
+package io.github.seriousguy888.villagermeat.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;

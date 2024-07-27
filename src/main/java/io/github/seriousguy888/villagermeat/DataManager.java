@@ -1,4 +1,4 @@
-package io.github.seriousguy888.billzovillagers;
+package io.github.seriousguy888.villagermeat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
-package io.github.seriousguy888.billzovillagers.listeners;
+package io.github.seriousguy888.villagermeat.listeners;
 
 
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers.config;
+package io.github.seriousguy888.villagermeat.config;
 
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.FileNotFoundException;

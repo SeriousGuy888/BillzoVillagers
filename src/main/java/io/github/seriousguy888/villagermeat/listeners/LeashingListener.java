@@ -1,7 +1,7 @@
-package io.github.seriousguy888.billzovillagers.listeners;
+package io.github.seriousguy888.villagermeat.listeners;
 
-import io.github.seriousguy888.billzovillagers.Main;
-import io.github.seriousguy888.billzovillagers.config.MainConfig;
+import io.github.seriousguy888.villagermeat.Main;
+import io.github.seriousguy888.villagermeat.config.MainConfig;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.*;

@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers.listeners;
+package io.github.seriousguy888.villagermeat.listeners;
 
-import io.github.seriousguy888.billzovillagers.Main;
+import io.github.seriousguy888.villagermeat.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;

@@ -1,6 +1,6 @@
-package io.github.seriousguy888.billzovillagers.listeners;
+package io.github.seriousguy888.villagermeat.listeners;
 
-import io.github.seriousguy888.billzovillagers.utils.VillagerNamer;
+import io.github.seriousguy888.villagermeat.utils.VillagerNamer;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

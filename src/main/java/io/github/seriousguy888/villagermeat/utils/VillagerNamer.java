@@ -1,8 +1,8 @@
-package io.github.seriousguy888.billzovillagers.utils;
+package io.github.seriousguy888.villagermeat.utils;
 
-import io.github.seriousguy888.billzovillagers.Main;
-import io.github.seriousguy888.billzovillagers.config.MainConfig;
-import io.github.seriousguy888.billzovillagers.config.NameListConfig;
+import io.github.seriousguy888.villagermeat.Main;
+import io.github.seriousguy888.villagermeat.config.MainConfig;
+import io.github.seriousguy888.villagermeat.config.NameListConfig;
 import org.bukkit.entity.Villager;
 
 import java.util.List;
