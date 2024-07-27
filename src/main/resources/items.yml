@@ -19,7 +19,7 @@ villager-meat:
     item-name: '{"text":"Villager Meat"}'
     lore:
       - '{"text":"chicken flavoured","color":"gray","italic":false}'
-    custom-model-data: 100
+    custom-model-data: 8600
     rarity: COMMON
     food:
       ==: Food
@@ -40,7 +40,7 @@ wandering-trader-meat:
     item-name: '{"text":"Wandering Trader Meat"}'
     lore:
       - '{"text":"turkey flavoured","color":"gray","italic":false}'
-    custom-model-data: 100
+    custom-model-data: 8600
     rarity: UNCOMMON
     food:
       ==: Food
