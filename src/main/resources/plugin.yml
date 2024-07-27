@@ -13,7 +13,3 @@ softdepend: [ DiscordSRV ]
 commands:
   toggle_villager_death_messages:
     description: Toggle seeing villager death messages in chat.
-    aliases:
-      - toggle_vdm
-      - vdm
-      - villager_death_messages
