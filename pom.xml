@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.seriousguy888</groupId>
-    <version>0.6.2</version>
     <artifactId>VillagerMeat</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>VillagerMeat</name>
