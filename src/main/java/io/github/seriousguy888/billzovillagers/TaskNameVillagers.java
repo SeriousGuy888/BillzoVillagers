@@ -22,7 +22,7 @@ public class TaskNameVillagers extends BukkitRunnable {
 
         livingEntity.setCustomName(new VillagerNamer().getRandomFullName());
         livingEntity.getWorld()
-            .spawnParticle(Particle.VILLAGER_HAPPY, livingEntity.getEyeLocation(), 15, 0.5, 0.5, 0.5);
+            .spawnParticle(Particle.HAPPY_VILLAGER, livingEntity.getEyeLocation(), 15, 0.5, 0.5, 0.5);
       });
     });
   }

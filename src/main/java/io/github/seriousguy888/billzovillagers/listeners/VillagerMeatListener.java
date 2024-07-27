@@ -26,7 +26,7 @@ public class VillagerMeatListener implements Listener {
       int randomBound = 3;
       if(killer != null) { // if a player kills, check for looting and apply accordingly
         ItemStack weapon = killer.getInventory().getItemInMainHand();
-        int lootingLvl = weapon.getEnchantmentLevel(Enchantment.LOOT_BONUS_MOBS);
+        int lootingLvl = weapon.getEnchantmentLevel(Enchantment.LOOTING);
         randomBound += lootingLvl; // https://minecraft.fandom.com/wiki/Looting#Usage
       }
 
