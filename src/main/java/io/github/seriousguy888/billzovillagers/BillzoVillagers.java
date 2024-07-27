@@ -3,6 +3,7 @@ package io.github.seriousguy888.billzovillagers;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import io.github.seriousguy888.billzovillagers.commands.ToggleVillagerDeathMessagesCommand;
+import io.github.seriousguy888.billzovillagers.config.ItemConfig;
 import io.github.seriousguy888.billzovillagers.config.MainConfig;
 import io.github.seriousguy888.billzovillagers.config.NameListConfig;
 import io.github.seriousguy888.billzovillagers.listeners.*;
@@ -29,6 +30,7 @@ public class BillzoVillagers extends JavaPlugin {
     public HashMap<Player, Boolean> villagerDeathMessagesEnabled;
 
     private MainConfig mainConfig;
+    private ItemConfig itemConfig;
     private NameListConfig nameListConfig;
 
     private UpdateChecker updateChecker;
@@ -40,6 +42,7 @@ public class BillzoVillagers extends JavaPlugin {
 
         try {
             mainConfig = new MainConfig(this, "config");
+            itemConfig = new ItemConfig(this, "items");
             nameListConfig = new NameListConfig(this, "villager_names");
         } catch (FileNotFoundException e) {
             getLogger().severe("Failed to initialise a config file. Cannot continue; disabling plugin.");
@@ -77,7 +80,7 @@ public class BillzoVillagers extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         pluginManager.registerEvents(new EntityBreedListener(), this);
-        pluginManager.registerEvents(new VillagerMeatListener(), this);
+        pluginManager.registerEvents(new VillagerMeatListener(this), this);
         pluginManager.registerEvents(new DeathMessageListener(), this);
         pluginManager.registerEvents(new EatListener(), this);
         pluginManager.registerEvents(new JoinLeaveListener(), this);
@@ -112,6 +115,10 @@ public class BillzoVillagers extends JavaPlugin {
 
     public MainConfig getMainConfig() {
         return mainConfig;
+    }
+
+    public ItemConfig getItemConfig() {
+        return itemConfig;
     }
 
     public NameListConfig getNameListConfig() {

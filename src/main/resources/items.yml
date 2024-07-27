@@ -1,0 +1,52 @@
+# To find the names of fields needed to customise the items, see...
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/ItemStack.html
+# https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/inventory/meta/ItemMeta.html
+#
+# May be helpful when configuring the food component:
+# for comparison, vanilla Minecraft steak is worth:
+# → 8 nutrition (4 drumsticks)
+# → 12.8 saturation
+#
+# See also: https://minecraft.wiki/w/Hunger
+
+villager-meat:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3953
+  type: COOKED_BEEF
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    item-name: '{"text":"Villager Meat"}'
+    lore:
+      - '{"text":"chicken flavoured","color":"gray","italic":false}'
+    custom-model-data: 100
+    rarity: COMMON
+    food:
+      ==: Food
+      nutrition: 8
+      saturation: 13.5
+      can-always-eat: false
+      eat-seconds: 1.6
+      using-converts-to: null
+      effects: []
+
+wandering-trader-meat:
+  ==: org.bukkit.inventory.ItemStack
+  v: 3953
+  type: COOKED_PORKCHOP
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    item-name: '{"text":"Wandering Trader Meat"}'
+    lore:
+      - '{"text":"turkey flavoured","color":"gray","italic":false}'
+    custom-model-data: 100
+    rarity: UNCOMMON
+    food:
+      ==: Food
+      nutrition: 10
+      saturation: 15.0
+      can-always-eat: false
+      eat-seconds: 1.6
+      using-converts-to: null
+      effects: []
