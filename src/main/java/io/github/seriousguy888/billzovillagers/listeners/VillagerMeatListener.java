@@ -1,7 +1,6 @@
 package io.github.seriousguy888.billzovillagers.listeners;
 
 import io.github.seriousguy888.billzovillagers.BillzoVillagers;
-import io.github.seriousguy888.billzovillagers.utils.MeatManager;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
