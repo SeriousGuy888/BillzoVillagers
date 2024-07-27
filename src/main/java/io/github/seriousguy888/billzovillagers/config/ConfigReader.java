@@ -76,7 +76,7 @@ public abstract class ConfigReader {
     }
 
     /**
-     * Should be called when changes have been made to the rules from in game.
+     * Should be called when changes have been made to the config from in game.
      * Will overwrite what is on disk.
      */
     public void saveToDisk() {
